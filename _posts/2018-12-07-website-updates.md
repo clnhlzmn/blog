@@ -13,7 +13,7 @@ The theme I used is called [Lens](https://github.com/ElasticDesigns/jekyll-lens)
 
 ### Resume
 
-[colinholzman.xyz/resume](https://colinholzman.xyz/resume) has a pdf of my resume. This is simply 
+[colinholzman.xyz/resume.pdf](https://colinholzman.xyz/resume.pdf) has a pdf of my resume. This is simply 
 ```
 const resume = fs.readFileSync(path.join(__dirname, 'resume.pdf'));
 app.get('/resume.pdf', (req, res) => {
