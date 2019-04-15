@@ -24,12 +24,14 @@ Another reason that I have been working on this project is to experiment with us
 
 * First class functions
 
-  These can be simulated in C using function pointers and a context parameter but it is awkward. 
+  These can be simulated in C using function pointers and a context parameter but it is awkward.
 
 * Compile time code generation (à la C++ templates)
 
-  I think C++ is very interesting in this regard, but I believe it tries to do too much.
+  C++ can do a lot in this regard, but I believe it tries to do too much.
 
-* A good way to write hierarchical state machines
+* Hierarchical state machine library
+
+  It seems that every program I write for 
 
 #### How
