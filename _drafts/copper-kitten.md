@@ -6,13 +6,11 @@ categories: programming
 tags: [languages, cs, design]
 ---
 
-### Introduction
+### What
 
-#### What
+An exercise in programming language and runtime design and implementation. Check out the [code](https://github.com/clnhlzmn/CopperKitten).
 
-An exercise in programming language and runtime design and implementation.
-
-#### Why
+### Why
 
 The first reason is that I have been fascinated with programming languages for as long as I have been programming. To better understand them I have built a few toy languages as a hobby. I think designing and implementing programming languages is a worthwhile pursuit for anyone who is trying to become a better programmer or who wishes to better understand how computers work. CopperKitten is the latest of my toy languages.
 
@@ -38,9 +36,9 @@ Another reason that I have been working on this project is to experiment with us
 
   It seems that every program I write for small microcontrollers includes some kind of state machine. Simple state machines are easy to implement using a switch statement over a state variable. Even moderately more complex state machines benefit greatly from the concept of hierarchical states. Implementing hierarchical state machines by hand (using switch or function pointers) is challenging enough to negate the benefit of a state machine in the first place. What I would love is a library implemented in C that can produce hierarchical state machine implementations in a way that minimizes boilerplate and eliminates code duplication. The features I have listed above would help with this task.
 
-These features aren't included in C because some of them necessarily abstract the hardware away from the programmer, are costly to implement, and or have a negative impact on performace. I am pointing out the lack of these features in C because C is the defacto standard language for embedded systems. Why should embedded programmers go without these things though? One reason that embedded programmers must go without is because the resources simply aren't available. In those situations, of course, C is the only choice.
+These features aren't included in C because some of them necessarily abstract the hardware away from the programmer, are costly to implement, and or have a negative impact on performace. I am pointing out the lack of these features in C because C is the defacto standard language for embedded systems. Why should embedded programmers go without these things though? In extremely resource constrained environments, of course, C is the only choice.
 
-#### How
+### How
 
 * Automatic memory management
 
