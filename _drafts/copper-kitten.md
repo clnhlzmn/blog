@@ -6,11 +6,15 @@ categories: programming
 tags: [languages, cs, design]
 ---
 
+### Introduction
+
 CopperKitten (CK) is an exercise in programming language and runtime design and implementation. Check out the [code].
 
 This project is far from complete. It will probably never be fully complete. I have a few features that I would like to implement before I put it aside. I am writing this post to introduce what I have done so far and invite comments and discussion.
 
 CK is a simple functional language with Hindley Milner type inference. Its compiler and assembler are currently implemented in Kotlin. The compiler (ckc), for now, compiles a single 'script' file to its corresponding portable assembly listing, and then the assembler (cka) compiles that listing to a portable C99 program. An example of this can be seen in the makefile [here][makefile]. Using the makefile requires java and gcc. The script [simple\_io.ck] is intended to illustrate features of the language that have been implemented so far.
+
+### The Language
 
 There are three built in types in CK: `Unit`, `Int`, and `Fun(A, ..., R)`. The first is the usual unit type with exactly one value. The second is a signed integer implemented by the C type `intptr_t`. That means its size depends on the target machine. The third type `Fun(A, ..., R)` is the function type where `A, ...` represents argument types and `R` is the return type. The function type can also be written as `(A, ...) R`.
 
@@ -34,9 +38,13 @@ The grammar of expressions includes
 
   `id(42)`, `add(1, 2)`, `map(aList, (e) e * e)`
 
+  CK uses eager evaluation.
+
 * function literals 
 
   `(a) a`, `(a, b) a + b`, `(n) n * n`
+
+  CK supports limited tail call optimization. For a function call in tail position if the callee has the same number of arguments as the caller, then the stack frame is reused, otherwise the call will create a new stack frame.
 
 * two forms of conditional expression 
 
@@ -54,9 +62,20 @@ The grammar of expressions includes
 
 Note that the let expression doesn't include `in <expr>`. The scope of a let expression is the rest of the expressions in the enclosing sequence. That is `{let id = (a) a; id(42)}` is can be thought of as `let id = (a) a in id(42)`. Tuple and string literals are included in the [grammar], but they're not yet implemented.
 
-Note that type annotations are not required. For clarity the programmer can annotate the types of let bound variables, functions parameters, and function return types using the `: T` syntax. For example `let id: (A) A = (a: A):A a`. Type annotations are not yet fully implemented, but it should be an easy feature to finish. At the moment there are not any reasons to add type annotations. I would like to add record types and corresponding syntax such as `a.b` which will, as far as I know, require minimal type annotations.
+Note that type annotations are not required. For clarity the programmer can annotate the types of let bound variables, functions parameters, and function return types using the `: T` syntax. For example `let id: (A) A = (a: A):A a`. Type annotations are not yet fully implemented, but it should be an easy feature to finish. At the moment there are not any situations that require annotations. I would like to add record types and corresponding syntax such as `a.b` which will, as far as I know, require limited type annotations.
+
+Another type of function literal expression is `cfun`. This is used to create a binding to a function defined in C for doing IO and whatever else you would rather do in C. In the [example][simple_io.ck] there are two `cfun` defined at the top that are used to read and write characters on stdout and stdin respectively. A `cfun` looks like `cfun id Type` where `id` is the identifier that matches the identifier of the function in C and `Type` is the type of that function. The `native_read` and `native_write` functions are implemented [here][builtin_cfuns.c]. The file that defines the native functions must be compiled and linked with the output from ckc/cka (this is illustrated [here][makefile]).
+
+### Implementation
+
+
+
+### Future Work
+
+
 
 [code]: https://github.com/clnhlzmn/CopperKitten
 [makefile]: https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/makefile
 [simple_io.ck]: https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/simple_io.ck
 [grammar]: https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/grammar/ck.g4
+[builtin_cfuns.c]: https://github.com/clnhlzmn/CopperKitten/blob/master/runtime/builtin_cfuns.c
