@@ -4,4 +4,4 @@ title: About
 permalink: /about/
 ---
 
-I want this blog to be a kind of journal for me. I've said that before. There are lots of things to write about I'm sure I can think of something.
+An experiment in running a website and blog.
