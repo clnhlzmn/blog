@@ -116,9 +116,23 @@ The [command line option interpreter][CLI] is the entry point for ckc. It parses
 
 ### Assembler
 
-The CK assembler ([cka]) takes a single program.cka file (program) and converts it to a C99 program.c file that includes the CK program bytecode and the program entry point. program.c must be compiled and linked with any files containing definitions of `cfun`s and with the chosen garbage collection implementation file (one of copying\_gc.c, incremental\_gc.c, or mark\_compact\_gc.c).
+The CK assembler ([cka]) takes a single program.cka file (program) and converts it to a C99 program.c file that includes the CK program bytecode and the program entry point. The main task of the assembler is to convert the [abstract assembler syntax][cka.g4] into a list of concrete bytecodes and literal values to be consumed by the runtime vm. Part of cka's task is to generate layout functions to be used by the memory management scheme to identify pointers on the stack and in heap allocated objects.
+
+I won't go into too much detail on cka here unless there is interest. It's pretty boring and mostly self explanatory.
+
+The output of cka (program.c) must be compiled and linked with any files containing definitions of `cfun`s and with the chosen garbage collection implementation file (one of copying\_gc.c, incremental\_gc.c, or mark\_compact\_gc.c). Again, the example [makefile] demonstrates this.
 
 ### Runtime
+
+The CK runtime is a simple bytecode interpreter combined with one of three tracing garbage collection implementations. I could have implemented CK by compiling directly to C, rather than using a vm, but I wanted to be able to support tail call optimization and I couldn't see how to do that in plain C.
+
+#### VM
+
+The CK vm is implemented by [vm.h]. Opcodes are enumerated in the type `enum vm_op_code` and are reasonably well documented there. In addition to the usual arithmetic operations there are some for control flow, stack frame management, memory allocation, storing/loading values to/from indices into heap objects/stack frames/function arguments/function captures, and some other miscellaneous operations. Program execution is done by the function `vm_execute` which simply iterates over the given program array dispatching on each op code.
+
+#### Memory Management
+
+There are two copying collectors (one incremental) and one mark compact. I hope they can be used as examples for people who are curious about how garbage collection works. The garbage collectors all depend on [gc\_interface.h] which declares a common set of functions with which the vm can interface with the heap memory.
 
 ## Future Work
 
@@ -140,10 +154,15 @@ Here is a list (in roughly the required order) of work that I would like to do o
 
 * generate machine code rather than C99
 
+* optimize polymorphic functions to not always use boxed types for integers
+
+* lots of other optimizations
+
 [code]: https://github.com/clnhlzmn/CopperKitten
 [makefile]: https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/makefile
 [simple_io.ck]: https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/simple_io.ck
 [ck.g4]: https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/grammar/ck.g4
+[cka.g4]: https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/cka/grammar/cka.g4
 [builtin_cfuns.c]: https://github.com/clnhlzmn/CopperKitten/blob/master/runtime/builtin_cfuns.c
 [ckc]: https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/
 [cka]: https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/cka/
@@ -155,3 +174,5 @@ Here is a list (in roughly the required order) of work that I would like to do o
 [Cardelli]: http://lucacardelli.name/Papers/BasicTypechecking.pdf
 [CompilationVisitor]: https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/ast/visitors/CompilationVisitor.kt
 [CLI]: https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/Cli.kt
+[vm.h]: https://github.com/clnhlzmn/CopperKitten/blob/master/runtime/vm.h
+[gc_interface.h]: https://github.com/clnhlzmn/CopperKitten/blob/master/runtime/gc_interface.h
