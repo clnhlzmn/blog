@@ -6,21 +6,29 @@ categories: programming
 tags: [languages, cs, design]
 ---
 
-### Introduction
+## Introduction
 
 CopperKitten (CK) is an exercise in programming language and runtime design and implementation. Check out the [code].
 
 This project is far from complete. It will probably never be fully complete. I have a few features that I would like to implement before I put it aside. I am writing this post to introduce what I have done so far and invite comments and discussion.
 
-CK is a simple functional language with Hindley Milner type inference. Its compiler and assembler are currently implemented in Kotlin. The compiler (ckc), for now, compiles a single 'script' file to its corresponding portable assembly listing, and then the assembler (cka) compiles that listing to a portable C99 program. An example of this can be seen in the makefile [here][makefile]. Using the makefile requires java and gcc. The script [simple\_io.ck] is intended to illustrate features of the language that have been implemented so far.
+CK is a simple functional language with Hindley Milner type inference. Its compiler and assembler are currently implemented in Kotlin. The compiler ([ckc]), for now, compiles a single 'script' file to its corresponding portable assembly listing, and then the assembler ([cka]) assembles that listing to a portable C99 program. An example of this can be seen in the makefile [here][makefile]. Using the makefile requires java and gcc. The script [simple\_io.ck] is intended to illustrate features of the language that have been implemented so far.
 
-### The Language
+## The Language
+
+### Built-in Types
 
 There are three built in types in CK: `Unit`, `Int`, and `Fun(A, ..., R)`. The first is the usual unit type with exactly one value. The second is a signed integer implemented by the C type `intptr_t`. That means its size depends on the target machine. The third type `Fun(A, ..., R)` is the function type where `A, ...` represents argument types and `R` is the return type. The function type can also be written as `(A, ...) R`.
 
+### User Defined Types
+
 Users can define their own types using a `type ...` declaration at the beginning of a CK file. For example the declaration `type List = (A) nil() | cons(A, List(A))` creates the type `List(A)` where `A` can be any type. For now, CK doesn't have pattern matching. To work with user defined type the compiler implements a number of functions behind the scenes. For the list type the compiler generates six functions: two constructors `nil: () List(A)` and `cons: (A, List(A)) List(A)` (`a: A` means that idenifier `a` has type `A`); two predicates `is_nil: (List(A)) Int` and `is_cons: (List(A)) Int` (no booleans for now: 0 is false, 1 is true); and two accessors for the fields of cons `cons_0: (List(A)) A` and `cons_1: (List(A)) List(A)`. Pattern matching, when implemented, will use these functions behind the scenes. Until then the programmer can use them to construct instances of user defined types and access their fields.
 
-A CK file, for now, consists of declarations followed by an expression. In the [grammar] there are two types of declaration, but for now only `typeDecl` is implemented. `moduleDecl` is a work in progress. The type declarations cause a number of functions to be implemented by the compiler for use in the following expression. The expression is treated as the entry point for the program. In the future I would like to add support for multiple files and perhaps separate compilation.
+### CK Programs
+
+For now a CK program consists of a single .ck file. A .ck file is zero or more declarations followed by zero or one expressions. Zero expressions in a .ck file is treated as if the single expression is `()` (unit). In the [grammar] there are two types of declaration, but for now only `typeDecl` is implemented. `moduleDecl` is a work in progress. The type declarations cause a number of functions to be implemented by the compiler for use in the following expression. The single expression in the .ck file is treated as the entry point for the program. In the future I would like to add support for multiple files and perhaps separate compilation.
+
+### Expressions
 
 The grammar of expressions includes
 
@@ -76,13 +84,33 @@ The grammar of expressions includes
 
 Note that type annotations are not required. For clarity the programmer can annotate the types of let bound variables, functions parameters, and function return types using the `: T` syntax. For example `let id: (A) A = (a: A):A a`. Type annotations are not yet fully implemented, but it should be an easy feature to finish. At the moment there are not any situations that _require_ annotations. I would like to add record types and corresponding syntax such as `a.b` which will, as far as I know, require limited type annotations.
 
-Another type of function literal expression is `cfun`. This is used to create a binding to a function defined in C for doing IO and whatever else you would rather do in C. In the [example][simple_io.ck] there are two `cfun` defined at the top that are used to read and write characters on stdout and stdin respectively. A `cfun` looks like `cfun id Type` where `id` is the identifier that matches the identifier of the function in C and `Type` is the type of that function. The `native_read` and `native_write` functions are implemented [here][builtin_cfuns.c]. The file that defines the native functions must be compiled and linked with the output from ckc/cka (this is illustrated [here][makefile]).
+### C Language Bindings
 
-### Implementation
+Another type of function expression is `cfun`. These can be used any place an ordinary function expression can be used. `cfun` is used to create a binding to a function defined in C for doing IO and whatever else you would rather do in C. In the [example][simple_io.ck] there are two `cfun` that are used to read and write characters on stdout and stdin respectively. A `cfun` looks like `cfun id Type` where `id` is the identifier that matches the identifier of the function in C and `Type` is the type of that function. The `native_read` and `native_write` functions are implemented [here][builtin_cfuns.c]. The file that defines the native functions must be compiled and linked with the output from ckc/cka (this is illustrated [here][makefile]).
 
+## Implementation
 
+The implementation of CK includes a compiler, assembler, and runtime.
 
-### Future Work
+### Compiler
+
+The CK compiler ([ckc]) takes a single program.ck file and compiles it to a CK assembly file program.cka. Compilation proceeds in a few steps.
+
+1. Parse program.ck using ANTLR4.
+
+2. Convert the ast that is produced by ANTLR to a simpler ast that is easier to work with.
+
+3. Type check the program.
+
+4. Compile the program.
+
+### Assembler
+
+The CK assembler ([cka]) takes a single program.cka file (program) and converts it to a C99 program.c file that includes the CK program bytecode and the program entry point. program.c must be compiled and linked with any files containing definitions of `cfun`s and with the chosen garbage collection implementation file (one of copying\_gc.c, incremental\_gc.c, or mark\_compact\_gc.c).
+
+### Runtime
+
+## Future Work
 
 
 
@@ -91,3 +119,5 @@ Another type of function literal expression is `cfun`. This is used to create a 
 [simple_io.ck]: https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/simple_io.ck
 [grammar]: https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/grammar/ck.g4
 [builtin_cfuns.c]: https://github.com/clnhlzmn/CopperKitten/blob/master/runtime/builtin_cfuns.c
+[ckc]: https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/
+[cka]: https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/cka/
