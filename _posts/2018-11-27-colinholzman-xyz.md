@@ -13,7 +13,7 @@ I used Amazon Lightsail for this. This site is currently running on the cheapest
 
 ### domain name
 
-Buy a domain name from someone like <porkbun.com>. Once you have an account you can create a record that will return the static ip that you assign to your server when someone asks for the address of colinholzman.xyz or whatever.
+Buy a domain name from someone like [porkbun.com](https://porkbun.com). Once you have an account you can create a record that will return the static ip that you assign to your server when someone asks for the address of colinholzman.xyz or whatever.
 
 ### install node.js
 
