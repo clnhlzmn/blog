@@ -1,1 +1,0 @@
-scp -r -i ~/.ssh/LightsailDefaultPrivateKey-us-east-2.pem ./_site/. admin@colinholzman.xyz:/home/admin/blog
