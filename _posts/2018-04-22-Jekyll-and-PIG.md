@@ -43,7 +43,7 @@ One last thing I did to enhance the gallery experience is make each image a link
 
 ## Result
 
-You can see what this looks like on my site [here][gallery]. TODO: add a lot more photos, figure out how to correct orientation of some photos.
+You can see what this looks like on my site [here][gallery]. TODO: add a lot more photos.
 
 [Lens]: https://github.com/ElasticDesigns/jekyll-lens
 [colinholzman.xyz]: https://colinholzman.xyz
