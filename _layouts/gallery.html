@@ -1,0 +1,17 @@
+---
+layout: page
+---
+<div id="pig"></div>
+<script src="/assets/js/pig.min.js"></script>
+<script>
+{% include gallery_data.html %}
+var options = {
+    urlForSize: function(filename, size) {
+        if (size === 1024)
+            return '/assets/html/' + filename;
+        else 
+            return '/assets/img/' + size + '/' + filename;
+    }
+};
+var pig = new Pig(imageData, options).enable();
+</script>
