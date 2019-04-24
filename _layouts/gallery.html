@@ -8,7 +8,7 @@ layout: page
 var options = {
     urlForSize: function(filename, size) {
         if (size === 1024)
-            return '/assets/html/' + filename;
+            return '/assets/html/' + filename + '.html';
         else 
             return '/assets/img/' + size + '/' + filename;
     }
