@@ -37,6 +37,10 @@ Since my goal is to display potentially hundreds of images like this I need a to
 
 [gallerybuilder][gallerybuilder] is a simple python script I wrote to take a directory full of photos, resize them all to the sizes required by pig.js, and generate the html for my gallery page. It's a rough draft for now but it does the trick.
 
+## Adding links
+
+One last thing I did to enhance the gallery experience is make each image a link to a full size version. To get the link to the full size image I call `urlForSize` with size equal to 1024. Therefore when creating thumbnail images for the assets folder we have to create sizes 20, 100, 250, 500, (for original pig.js) and 1024 (for full size link). You can see the simple change to pig.js [here][clnhlzmn pig.js].
+
 ## Result
 
 You can see what this looks like on my site [here][gallery]. TODO: add a lot more photos.
@@ -47,4 +51,5 @@ You can see what this looks like on my site [here][gallery]. TODO: add a lot mor
 [Basurco]: https://chuckleplant.github.io/2018/08/06/pig-img-gallery.html
 [JPG]: https://github.com/aerobless/jekyll-photo-gallery
 [pig.js]: https://github.com/schlosser/pig.js
-[gallerybuilder]: https://github.com/clnhlzmn/gallerybuilder
+[clnhlzmn pig.js]: https://github.com/schlosser/pig.js/compare/master...clnhlzmn:master#diff-ded216d1d585dc143459a4bdbbed4626R785
+[gallerybuilder]: https://github.com/clnhlzmn/gallerybuilder/blob/master/main.py
