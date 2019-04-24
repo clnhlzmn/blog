@@ -793,7 +793,7 @@
         
         this.fullImageLink = document.createElement('a');
         this.fullImageLink.href = this.pig.settings.urlForSize(this.filename, 1024);
-        this.fullImageLink.target = "_blank";
+        //this.fullImageLink.target = "_blank";
         
         this.fullImage = new Image();
         this.fullImage.src = this.pig.settings.urlForSize(this.filename, this.pig.settings.getImageSize(this.pig.lastWindowWidth));
