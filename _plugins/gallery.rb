@@ -6,16 +6,65 @@
 #add gallery/ to exclude list in your site's _config.yml
 #run jekyll build
 
+require 'fileutils'
 require 'mini_magick'
 
 module GalleryGenerator
     class GalleryGenerator < Jekyll::Generator
         def generate(site)
-            if File.directory?(File.join(site.source, "gallery"))
-            image = MiniMagick::Image.open(
-                "https://images.unsplash.com/photo-1516295615676-7ae4303c1c63"
-            )
-            print image
+            
+            gallery_path = File.join(site.source, "gallery")
+            assets_path = File.join(site.source, "assets")
+            img_path = File.join(assets_path, "img")
+            html_path = File.join(assets_path, "html")
+            includes_path = File.join(site.source, "_includes")
+            
+            if File.directory?(gallery_path)
+            
+                #array for holding image data for later
+                image_data = []
+                
+                #hash for holding images from mini_magick, file name is key
+                images = {}
+                
+                #determine list of image names
+                Dir.entries(gallery_path).each { |file_name| 
+                    full_image_path = File.join(gallery_path, file_name)
+                    begin 
+                        images[file_name] = MiniMagick::Image.open(full_image_path)
+                    rescue
+                        #not an image
+                    end
+                }
+                
+                #make output path(s)
+                FileUtils.mkdir_p assets_path unless File.exists? assets_path
+                FileUtils.mkdir_p img_path unless File.exists? img_path
+                FileUtils.mkdir_p html_path unless File.exists? html_path
+                FileUtils.mkdir_p includes_path unless File.exists? includes_path
+                
+                #for each image
+                images.each { |image_name, image| 
+                    
+                    #append data to image_data array
+                    image_data << 
+                        { 
+                            'filename' => image_name, 
+                            'aspectRatio' => image.width / image.height
+                        }
+                    
+                    #create thumbs
+                    [1024, 500, 250, 100, 20].each { |size|
+                        image.resize("x" + size.to_s)
+                        size_out_path = File.join(img_path, size.to_s)
+                        FileUtils.mkdir_p size_out_path  unless File.exists? size_out_path 
+                        image.write(File.join(size_out_path , image_name))
+                    }
+                    
+                    
+                }
+                
+            end
         end
     end
 end
