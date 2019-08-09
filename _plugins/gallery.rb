@@ -6,6 +6,7 @@
 #add gallery/ to exclude list in your site's _config.yml
 #run jekyll build
 
+require 'date'
 require 'fileutils'
 require 'mini_magick'
 
@@ -61,6 +62,25 @@ module GalleryGenerator
                         image.write(File.join(size_out_path , image_name))
                     }
                     
+                    image_date = ""
+                    begin 
+                        image_date = Date.strptime(image_name[0, 10], "%Y-%m-%d")
+                    rescue
+                        #get the date from exif or file if available
+                    end
+                    
+                    full_size_html =
+                        '---
+layout: post
+title: "' + image_name + '"
+date: "' + image_date.to_s + '"
+exclude: true
+---
+<img src="/assets/img/1024/' + image_name + '"></img>'
+                    
+                    File.open(File.join(html_path, image_name + ".html"), 'w') { |file| 
+                        file.write(full_size_html) 
+                    }
                     
                 }
                 
