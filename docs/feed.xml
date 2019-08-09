@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://clnhlzmn.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://clnhlzmn.github.io/blog/" rel="alternate" type="text/html" /><updated>2019-08-09T09:05:31-04:00</updated><id>https://clnhlzmn.github.io/blog/feed.xml</id><title type="html">Colin Holzman</title><subtitle>Mostly an experiment in setting up and running a server/blog. I also occasionally think of things to write about so maybe  I'll do that here.</subtitle><entry><title type="html">Jekyll and pig.js</title><link href="https://clnhlzmn.github.io/blog/programming/2019/04/22/Jekyll-and-PIG.html" rel="alternate" type="text/html" title="Jekyll and pig.js" /><published>2019-04-22T09:00:00-04:00</published><updated>2019-04-22T09:00:00-04:00</updated><id>https://clnhlzmn.github.io/blog/programming/2019/04/22/Jekyll-and-PIG</id><content type="html" xml:base="https://clnhlzmn.github.io/blog/programming/2019/04/22/Jekyll-and-PIG.html">&lt;h2 id=&quot;photo-gallery&quot;&gt;Photo Gallery&lt;/h2&gt;
+
+&lt;p&gt;I tried using &lt;a href=&quot;https://github.com/ElasticDesigns/jekyll-lens&quot;&gt;Jekyll Lens&lt;/a&gt; for a photo gallery on &lt;a href=&quot;https://colinholzman.xyz&quot;&gt;colinholzman.xyz&lt;/a&gt;. It worked and was easy to use but was not exactly what I wanted. While looking for a better method I came across &lt;a href=&quot;https://chuckleplant.github.io/2018/08/06/pig-img-gallery.html&quot;&gt;this&lt;/a&gt; post by Sergio Basurco. In it he describes how he modified the &lt;a href=&quot;https://github.com/aerobless/jekyll-photo-gallery&quot;&gt;Jekyll Photo Gallery&lt;/a&gt; plugin to use &lt;a href=&quot;https://github.com/schlosser/pig.js&quot;&gt;pig.js&lt;/a&gt; for loading images. Pig.js is a simple and lightweight JavaScript library to enable progressive loading of images as the user scrolls to them. The &lt;a href=&quot;https://feeding.schlosser.io/&quot;&gt;example&lt;/a&gt; is exactly the effect that I was looking for.&lt;/p&gt;
+
+&lt;h2 id=&quot;generating-assets&quot;&gt;Generating Assets&lt;/h2&gt;
+
+&lt;p&gt;Pig.js expects to be able to load various sizes for each image. To do this the we must store the images in a manner that allows the pig.js function &lt;code class=&quot;highlighter-rouge&quot;&gt;urlForSize&lt;/code&gt; to return the path to the image of a given size. I have chosen to store my images like so:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├── assets
+│   ├── img
+│   │   ├── 20
+│   │   |   ├── blue.jpg
+│   │   |   ...
+│   │   ├── 100
+│   │   |   ├── red.jpg
+│   │   |   ...
+│   │   ├── 250
+│   │   |   ├── green.jpg
+│   │   |   ...
+│   │   ├── 500
+│   │   │   ├── blue.jpg
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Since my goal is to display potentially hundreds of images like this I need a tool to resize them all and generate the directory structure above.&lt;/p&gt;
+
+&lt;h2 id=&quot;gallerybuilder&quot;&gt;gallerybuilder&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/clnhlzmn/gallerybuilder/blob/master/main.py&quot;&gt;gallerybuilder&lt;/a&gt; is a simple python script I wrote to take a directory full of photos, resize them all to the sizes required by pig.js, and generate the html for my gallery page. It’s a rough draft for now but it does the trick.&lt;/p&gt;
+
+&lt;h2 id=&quot;adding-links&quot;&gt;Adding links&lt;/h2&gt;
+
+&lt;p&gt;One last thing I did to enhance the gallery experience is make each image a link to a full size version. To get the link to the full size image I call &lt;code class=&quot;highlighter-rouge&quot;&gt;urlForSize&lt;/code&gt; with size equal to 1024. Therefore when creating thumbnail images for the assets folder we have to create sizes 20, 100, 250, 500, (for original pig.js) and 1024 (for full size link). You can see the simple change to pig.js &lt;a href=&quot;https://github.com/schlosser/pig.js/compare/master...clnhlzmn:master#diff-ded216d1d585dc143459a4bdbbed4626R785&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;result&quot;&gt;Result&lt;/h2&gt;
+
+&lt;p&gt;You can see what this looks like on my site &lt;a href=&quot;https://colinholzman.xyz/gallery&quot;&gt;here&lt;/a&gt;. TODO: add a lot more photos.&lt;/p&gt;</content><author><name></name></author><category term="website" /><category term="blog" /><category term="jekyll" /><summary type="html">Photo Gallery</summary></entry><entry><title type="html">CopperKitten</title><link href="https://clnhlzmn.github.io/blog/programming/2019/04/17/copper-kitten.html" rel="alternate" type="text/html" title="CopperKitten" /><published>2019-04-17T17:00:00-04:00</published><updated>2019-04-17T17:00:00-04:00</updated><id>https://clnhlzmn.github.io/blog/programming/2019/04/17/copper-kitten</id><content type="html" xml:base="https://clnhlzmn.github.io/blog/programming/2019/04/17/copper-kitten.html">&lt;p&gt;CopperKitten is an exercise in programming language and runtime design and implementation. Check out the code &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten&quot;&gt;here&lt;/a&gt; and read on for more explanation.&lt;/p&gt;
+
+&lt;p&gt;This project is far from complete. It will probably never be fully complete. I have a few features that I would like to implement before I put it aside. I am writing this post to introduce what I have done so far and invite comments and discussion.&lt;/p&gt;
+
+&lt;p&gt;CK is a simple functional language with Hindley Milner type inference. Its compiler and assembler are currently implemented in Kotlin. The compiler (&lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/&quot;&gt;ckc&lt;/a&gt;), for now, compiles a single ‘script’ file to its corresponding portable assembly listing, and then the assembler (&lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/cka/&quot;&gt;cka&lt;/a&gt;) assembles that listing to a portable C99 program. An example of this can be seen in the makefile &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/makefile&quot;&gt;here&lt;/a&gt;. Using the makefile requires java and gcc. The script &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/simple_io.ck&quot;&gt;simple_io.ck&lt;/a&gt; is intended to illustrate features of the language that have been implemented so far.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-language&quot;&gt;The Language&lt;/h2&gt;
+
+&lt;h3 id=&quot;built-in-types&quot;&gt;Built-in Types&lt;/h3&gt;
+
+&lt;p&gt;There are three built in types in CK: &lt;code class=&quot;highlighter-rouge&quot;&gt;Unit&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Int&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;Fun(A, ..., R)&lt;/code&gt;. The first is the usual unit type with exactly one value. The second is a signed integer implemented by the C type &lt;code class=&quot;highlighter-rouge&quot;&gt;intptr_t&lt;/code&gt;. The third type &lt;code class=&quot;highlighter-rouge&quot;&gt;Fun(A, ..., R)&lt;/code&gt; is the function type where &lt;code class=&quot;highlighter-rouge&quot;&gt;A, ...&lt;/code&gt; represents argument types and &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt; is the return type. The function type can also be written as &lt;code class=&quot;highlighter-rouge&quot;&gt;(A, ...) R&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;user-defined-types&quot;&gt;User Defined Types&lt;/h3&gt;
+
+&lt;p&gt;Users can define their own types using a &lt;code class=&quot;highlighter-rouge&quot;&gt;type ...&lt;/code&gt; declaration at the beginning of a CK file. For example the declaration &lt;code class=&quot;highlighter-rouge&quot;&gt;type List = (A) nil() | cons(A, List(A))&lt;/code&gt; creates the type &lt;code class=&quot;highlighter-rouge&quot;&gt;List(A)&lt;/code&gt; where &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; can be any type. User defined types are implemented as a number of compiler generated functions. Pattern matching, when implemented, will use these functions behind the scenes. Until then, the programmer can use them to construct and deconstruct values of user defined types.&lt;/p&gt;
+
+&lt;h3 id=&quot;ck-programs&quot;&gt;CK Programs&lt;/h3&gt;
+
+&lt;p&gt;For now a CK program consists of a single .ck file. A .ck file is zero or more declarations followed by an expression. In the &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/grammar/ck.g4&quot;&gt;grammar&lt;/a&gt; there are two types of declaration, but for now only &lt;code class=&quot;highlighter-rouge&quot;&gt;typeDecl&lt;/code&gt; is implemented. The type declarations cause a number of functions to be implemented by the compiler for use in the following expression. Evaluation of the expression in the .ck file is evaluation of the CK program. In the future I would like to add support for multiple files.&lt;/p&gt;
+
+&lt;h3 id=&quot;expressions&quot;&gt;Expressions&lt;/h3&gt;
+
+&lt;p&gt;The grammar of expressions includes&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;unit&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;integers&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;1000000000000000&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;all the usual unary and binary operations on integers&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;a + b&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;-42&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;a || (b &amp;lt;&amp;gt; c)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;All unary and binary operators take arguments of type &lt;code class=&quot;highlighter-rouge&quot;&gt;Int&lt;/code&gt; and return values of type &lt;code class=&quot;highlighter-rouge&quot;&gt;Int&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;functions&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(a) a&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;(a, b) a + b&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;(n) n * n&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;CK supports limited tail call optimization. For a function call in tail position, if the callee has the same number of arguments as the caller, then the stack frame is reused, otherwise the call will create a new stack frame.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;function applications&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;id(42)&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;add(1, 2)&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;map(aList, (e) e * e)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;CK uses eager evaluation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;two forms of conditional expression&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cond() ? true() : false()&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;if (cond()) true() else false()&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;if (cond()) true()&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;Consequent and alternate expressions of a conditional expression must have the same type. An &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt; without an &lt;code class=&quot;highlighter-rouge&quot;&gt;else&lt;/code&gt; has type &lt;code class=&quot;highlighter-rouge&quot;&gt;Unit&lt;/code&gt; (that means the consequent must have type &lt;code class=&quot;highlighter-rouge&quot;&gt;Unit&lt;/code&gt;). Condition expressions must have type &lt;code class=&quot;highlighter-rouge&quot;&gt;Int&lt;/code&gt; where 0 is false and 1 is true, for now. I intend to add a true boolean type at some point.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;sequence expressions&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;{ a; b }&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; is evaluated and its result discarded, then &lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt; is evaluated and its value is the value of &lt;code class=&quot;highlighter-rouge&quot;&gt;{ a; b }&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;and let expressions&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;let id = (a) a&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;let rec forever = (f) { f(); forever(f) }&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;{ let id = (a) a; id(42) }&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;The scope of a let expression is the rest of the expressions in its enclosing sequence. That is &lt;code class=&quot;highlighter-rouge&quot;&gt;{let id = (a) a; id(42)}&lt;/code&gt; can be thought of as &lt;code class=&quot;highlighter-rouge&quot;&gt;let id = (a) a in id(42)&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;tuples and strings are included in the grammar, but they’re not yet implemented&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note that type annotations are not required. For clarity the programmer can annotate the types of let bound variables, functions parameters, and function return types using the &lt;code class=&quot;highlighter-rouge&quot;&gt;: T&lt;/code&gt; syntax. For example &lt;code class=&quot;highlighter-rouge&quot;&gt;let id: (A) A = (a: A):A a&lt;/code&gt;. Type annotations are not yet fully implemented, but it should be an easy feature to finish. At the moment there are not any situations that &lt;em&gt;require&lt;/em&gt; annotations. I would like to add record types and corresponding accessor syntax such as &lt;code class=&quot;highlighter-rouge&quot;&gt;a.b&lt;/code&gt; which will, as far as I know, require limited type annotations.&lt;/p&gt;
+
+&lt;h3 id=&quot;c-language-bindings&quot;&gt;C Language Bindings&lt;/h3&gt;
+
+&lt;p&gt;Another type of function expression is &lt;code class=&quot;highlighter-rouge&quot;&gt;cfun&lt;/code&gt;. These can be used any place an ordinary function expression can be used. &lt;code class=&quot;highlighter-rouge&quot;&gt;cfun&lt;/code&gt; is used to create a binding to a function defined in C for doing IO and whatever else you would rather do in C. In the &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/simple_io.ck&quot;&gt;example&lt;/a&gt; there are two &lt;code class=&quot;highlighter-rouge&quot;&gt;cfun&lt;/code&gt;s that are used to read and write characters on &lt;code class=&quot;highlighter-rouge&quot;&gt;stdout&lt;/code&gt;/&lt;code class=&quot;highlighter-rouge&quot;&gt;stdin&lt;/code&gt;. A &lt;code class=&quot;highlighter-rouge&quot;&gt;cfun&lt;/code&gt; looks like &lt;code class=&quot;highlighter-rouge&quot;&gt;cfun id Type&lt;/code&gt; where &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; is the identifier that matches the identifier of the function in C and &lt;code class=&quot;highlighter-rouge&quot;&gt;Type&lt;/code&gt; is the type of that function. The &lt;code class=&quot;highlighter-rouge&quot;&gt;native_read&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;native_write&lt;/code&gt; functions are implemented &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/runtime/builtin_cfuns.c&quot;&gt;here&lt;/a&gt;. The file that defines the native functions must be compiled and linked with the output from ckc/cka (this is illustrated &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/makefile&quot;&gt;here&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h2 id=&quot;implementation&quot;&gt;Implementation&lt;/h2&gt;
+
+&lt;p&gt;The implementation of CK includes a compiler, assembler, and runtime.&lt;/p&gt;
+
+&lt;h3 id=&quot;compiler&quot;&gt;Compiler&lt;/h3&gt;
+
+&lt;p&gt;The CK compiler (&lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/&quot;&gt;ckc&lt;/a&gt;) takes a single file (program.ck) and compiles it to a CK assembly file (program.cka). Compilation proceeds in a few steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Parse program.ck using ANTLR4.&lt;/p&gt;
+
+    &lt;p&gt;ANTLR4 generates the &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/gen/&quot;&gt;classes&lt;/a&gt; required to parse a CK file based on the grammar &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/grammar/ck.g4&quot;&gt;ck.g4&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Convert the ast that is produced by ANTLR to a simpler ast that is easier to work with.&lt;/p&gt;
+
+    &lt;p&gt;The class CkBaseVisitor (generated by ANTLR) is extended &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/grammar/visitors&quot;&gt;here&lt;/a&gt; to convert the ANTLR generated ast into a &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/ast/node/&quot;&gt;simpler representation&lt;/a&gt;. The CkBaseVisitor extensions are used to parse program.ck &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/grammar/Parse.kt&quot;&gt;here&lt;/a&gt; and return the simpler ast.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Type check the program.&lt;/p&gt;
+
+    &lt;p&gt;Type checking is implemented &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/analyze/Analyze.kt&quot;&gt;here&lt;/a&gt;. The type checker is based on the example implementation at the end of &lt;a href=&quot;http://lucacardelli.name/Papers/BasicTypechecking.pdf&quot;&gt;“Basic Polymorphic Typechecking” by Luca Cardelli&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Compile the program.&lt;/p&gt;
+
+    &lt;p&gt;Compilation is done by the &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/ast/visitors/CompilationVisitor.kt&quot;&gt;CompilationVisitor&lt;/a&gt; class. For now this amounts to visiting the ast and returning a list of assembler instructions.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/Cli.kt&quot;&gt;command line option parser&lt;/a&gt; is used when ckc is invoked on the command line. It parses command line options, reads the input file, performs the compilation steps above, and writes the output to the specified output file.&lt;/p&gt;
+
+&lt;h3 id=&quot;assembler&quot;&gt;Assembler&lt;/h3&gt;
+
+&lt;p&gt;The CK assembler (&lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/cka/&quot;&gt;cka&lt;/a&gt;) takes a single program.cka file and converts it to a C99 file. The main task of the assembler is to convert the &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/cka/grammar/cka.g4&quot;&gt;abstract assembler syntax&lt;/a&gt; into a list of concrete bytecodes and literal values to be consumed by the runtime vm. Part of cka’s task is to generate layout functions to be used by the memory management scheme to identify pointers on the stack and in heap allocated objects. Another thing that the assembler does is combine the program bytecode array, generated functions, and other supporting pieces together into a .c file with a &lt;code class=&quot;highlighter-rouge&quot;&gt;main&lt;/code&gt; function that initializes the CK runtime and starts execution.&lt;/p&gt;
+
+&lt;p&gt;I won’t go into too much detail on cka here unless there is interest. It’s pretty boring and mostly self explanatory.&lt;/p&gt;
+
+&lt;p&gt;The output of cka must be compiled and linked with any files containing definitions of &lt;code class=&quot;highlighter-rouge&quot;&gt;cfun&lt;/code&gt;s and with the chosen garbage collection implementation file (one of copying_gc.c, incremental_gc.c, or mark_compact_gc.c). Again, the example &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/makefile&quot;&gt;makefile&lt;/a&gt; demonstrates this.&lt;/p&gt;
+
+&lt;h3 id=&quot;runtime&quot;&gt;Runtime&lt;/h3&gt;
+
+&lt;p&gt;The CK runtime is a simple bytecode interpreter combined with one of three tracing garbage collection implementations. I could have implemented CK by compiling directly to C, rather than using a vm, but I wanted to be able to support tail call optimization and I couldn’t see how to do that in plain C.&lt;/p&gt;
+
+&lt;h4 id=&quot;vm&quot;&gt;VM&lt;/h4&gt;
+
+&lt;p&gt;The CK vm is implemented by &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/runtime/vm.h&quot;&gt;vm.h&lt;/a&gt;. Opcodes are enumerated in the type &lt;code class=&quot;highlighter-rouge&quot;&gt;enum vm_op_code&lt;/code&gt; and are reasonably well documented there. In addition to the usual arithmetic operations there are some for control flow, stack frame management, memory allocation, storing/loading values to/from indices into heap objects/stack frames/function arguments/function captures, and some other miscellaneous operations. Program execution is done by the function &lt;code class=&quot;highlighter-rouge&quot;&gt;vm_execute&lt;/code&gt; which simply iterates over the given program array dispatching on each op code.&lt;/p&gt;
+
+&lt;h4 id=&quot;memory-management&quot;&gt;Memory Management&lt;/h4&gt;
+
+&lt;p&gt;There are two copying collectors (one incremental) and one mark compact. I hope they can be used as examples for people who are curious about how garbage collection works. The garbage collectors all depend on &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten/blob/master/runtime/gc_interface.h&quot;&gt;gc_interface.h&lt;/a&gt; which declares a common set of functions with which the vm can interface with the heap memory. There are probably subtle bugs in the implementations of the garbage collectors. I am most confident in the correctness of the simple copying collector, least confident in the incremental copying collector, and the mark compact collector is somewhere in between.&lt;/p&gt;
+
+&lt;h2 id=&quot;future-work&quot;&gt;Future Work&lt;/h2&gt;
+
+&lt;p&gt;This is work that I would like to do on this project in the future.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;clean up, organize, and simplify: compiler, assembler, and runtime source files&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;integrate programmer type annotations with type checker&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;strings and tuples&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;pattern matching on instances of user defined types&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;modules&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;implement parser and CLI in Kotlin (removing ANTLR and Apache CLI dependencies)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;implement compiler and assembler in functional language like ML (or at least in a functional style in Kotlin)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;implement compiler and assembler in CK&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;generate machine code rather than C99&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;optimize polymorphic functions to not always use boxed types for integers&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;lots of other optimizations&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thanks for making it this far! Let me know what you think with a comment below.&lt;/p&gt;</content><author><name></name></author><category term="languages" /><category term="cs" /><category term="design" /><summary type="html">CopperKitten is an exercise in programming language and runtime design and implementation. Check out the code here and read on for more explanation.</summary></entry><entry><title type="html">website updates</title><link href="https://clnhlzmn.github.io/blog/internet/2018/12/07/website-updates.html" rel="alternate" type="text/html" title="website updates" /><published>2018-12-07T16:24:00-05:00</published><updated>2018-12-07T16:24:00-05:00</updated><id>https://clnhlzmn.github.io/blog/internet/2018/12/07/website-updates</id><content type="html" xml:base="https://clnhlzmn.github.io/blog/internet/2018/12/07/website-updates.html">&lt;h3 id=&quot;photos&quot;&gt;Photos&lt;/h3&gt;
+
+&lt;p&gt;There are some really neat themes for Jekyll for all sorts of things. I found one for a photo gallery and set it up at &lt;a href=&quot;https://colinholzman.xyz/photos&quot;&gt;colinholzman.xyz/photos&lt;/a&gt;. Not a lot of photos up there at the moment, but that’ll change.&lt;/p&gt;
+
+&lt;p&gt;The theme I used is called &lt;a href=&quot;https://github.com/ElasticDesigns/jekyll-lens&quot;&gt;Lens&lt;/a&gt;. It works similarly to default Jekyll. Put your photos in one place, run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll build&lt;/code&gt; and you’ll have the static site ready to serve, in my case, with &lt;code class=&quot;highlighter-rouge&quot;&gt;app.use('/photos', express.static('/home/admin/photos'));&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;resume&quot;&gt;Resume&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://colinholzman.xyz/resume.pdf&quot;&gt;colinholzman.xyz/resume.pdf&lt;/a&gt; has a pdf of my resume. This is simply&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const resume = fs.readFileSync(path.join(__dirname, 'resume.pdf'));
+app.get('/resume.pdf', (req, res) =&amp;gt; {
+    res.send(resume);
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;on the server.&lt;/p&gt;
+
+&lt;p&gt;I should probably update my resume.&lt;/p&gt;
+
+&lt;h3 id=&quot;webcam&quot;&gt;Webcam&lt;/h3&gt;
+
+&lt;p&gt;I used an old USB webcam, a rasberry pi 3 B, and &lt;a href=&quot;https://github.com/ccrisan/motioneyeos&quot;&gt;motionEyeOs&lt;/a&gt; to set up a stream of my backyard at &lt;a href=&quot;http://colinholzman.xyz/cam&quot;&gt;colinholzman.xyz/cam&lt;/a&gt;. Download the latest image of motionEyeOs for your device from &lt;a href=&quot;https://github.com/ccrisan/motioneyeos/wiki/Supported-Devices&quot;&gt;here&lt;/a&gt;. For a RPi burn the image on a sd card (I used etcher on my mac). Plug in the camera, insert the sd card, and connect the Pi to the network and power. Then go to the Pi’s address in your browser to set up all the options. There are a lot of options to configure but the camera and stream worked out of the box.&lt;/p&gt;
+
+&lt;p&gt;I forwarded the video streaming port through my router and that enabled me to access the stream from the internet. On the colinholzman.xyz server I added&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;app.get('/cam', (req, res) =&amp;gt; {
+    res.sendFile(path.join(__dirname, 'cam.html'));
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;where cam.html just has an iframe pointing to my home router on the motionEyeOs streaming port. It seems to work OK. It doesn’t work over https though. I wonder why?&lt;/p&gt;</content><author><name></name></author><summary type="html">Photos</summary></entry><entry><title type="html">colinholzman.xyz</title><link href="https://clnhlzmn.github.io/blog/meta/2018/11/27/colinholzman-xyz.html" rel="alternate" type="text/html" title="colinholzman.xyz" /><published>2018-11-27T07:00:00-05:00</published><updated>2018-11-27T07:00:00-05:00</updated><id>https://clnhlzmn.github.io/blog/meta/2018/11/27/colinholzman-xyz</id><content type="html" xml:base="https://clnhlzmn.github.io/blog/meta/2018/11/27/colinholzman-xyz.html">&lt;p&gt;I’ve wanted to learn what it takes to run a website. Finally I’ve put together &lt;a href=&quot;https://colinholzman.xyz&quot;&gt;colinholzman.xyz&lt;/a&gt;. This is based on knowledge found all over the internet and through trial and error. It’s fitting to write down some instructions on how to reproduce it as the first post.&lt;/p&gt;
+
+&lt;h3 id=&quot;get-a-host-to-serve-your-site&quot;&gt;get a host to serve your site&lt;/h3&gt;
+
+&lt;p&gt;I used Amazon Lightsail for this. This site is currently running on the cheapest instance I could get (512 MB RAM, 1 vCPU, 20 GB SSD). It’s running Debian 8.&lt;/p&gt;
+
+&lt;h3 id=&quot;domain-name&quot;&gt;domain name&lt;/h3&gt;
+
+&lt;p&gt;Buy a domain name from someone like &lt;a href=&quot;https://porkbun.com&quot;&gt;porkbun.com&lt;/a&gt;. Once you have an account you can create a record that will return the static ip that you assign to your server when someone asks for the address of colinholzman.xyz or whatever.&lt;/p&gt;
+
+&lt;h3 id=&quot;install-nodejs&quot;&gt;install node.js&lt;/h3&gt;
+
+&lt;p&gt;Do this in whatever way is typical for your os. I think Amazon has images with node already installed.&lt;/p&gt;
+
+&lt;h3 id=&quot;install-express-forever-and-probably-some-other-things&quot;&gt;install express, forever, and probably some other things&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;npm install express&lt;/code&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;npm install forever&lt;/code&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;...&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;create-a-file-serverjs&quot;&gt;create a file server.js&lt;/h3&gt;
+
+&lt;p&gt;Here is a simple static http server (a pretty trivial use of express I’m sure):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// Dependencies
+const fs = require('fs');
+const http = require('http');
+const express = require('express');
+
+const app = express();
+
+app.use(express.static('/home/admin/site'))
+
+// Starting http server
+const httpServer = http.createServer(app);
+
+httpServer.listen(80, () =&amp;gt; {
+    //console.log('HTTP Server running on port 80');
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Run it like &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo forever start server.js&lt;/code&gt;. We want to use https though!&lt;/p&gt;
+
+&lt;h3 id=&quot;lets-encrypt&quot;&gt;Let’s Encrypt&lt;/h3&gt;
+
+&lt;p&gt;In order to get the nice secure looking green lock when you visit your site you’ll have to obtain some on-the-level ssl certificates. To do this we go to &lt;a href=&quot;https://certbot.eff.org/&quot;&gt;certbot.eff.org&lt;/a&gt; and download the certbot-auto tool. There are pretty solid instructions there. It comes down to running something like &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo ./path/to/certbot-auto certonly --webroot -d colinholzman.xyz&lt;/code&gt;. With the certificate generated make &lt;code class=&quot;highlighter-rouge&quot;&gt;server.js&lt;/code&gt; look like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// Dependencies
+const fs = require('fs');
+const https = require('https');
+const express = require('express');
+
+const app = express();
+
+// Certificate
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/colinholzman.xyz/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/colinholzman.xyz/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/colinholzman.xyz/chain.pem', 'utf8');
+
+const credentials = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca
+};
+
+app.use(express.static('/home/admin/site'))
+
+// Starting https server
+const httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(443, () =&amp;gt; {
+    //console.log('HTTPS Server running on port 443');
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;jekyll&quot;&gt;Jekyll&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; is a static website generator. It takes a bunch of markdown content and puts it into place using templates and creates the html and other stuff that gets served from &lt;code class=&quot;highlighter-rouge&quot;&gt;/home/admin/site&lt;/code&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">I’ve wanted to learn what it takes to run a website. Finally I’ve put together colinholzman.xyz. This is based on knowledge found all over the internet and through trial and error. It’s fitting to write down some instructions on how to reproduce it as the first post.</summary></entry></feed>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>CopperKitten | Colin Holzman</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="CopperKitten" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="CopperKitten is an exercise in programming language and runtime design and implementation. Check out the code here and read on for more explanation." />
+<meta property="og:description" content="CopperKitten is an exercise in programming language and runtime design and implementation. Check out the code here and read on for more explanation." />
+<link rel="canonical" href="https://clnhlzmn.github.io/blog/programming/2019/04/17/copper-kitten.html" />
+<meta property="og:url" content="https://clnhlzmn.github.io/blog/programming/2019/04/17/copper-kitten.html" />
+<meta property="og:site_name" content="Colin Holzman" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-04-17T17:00:00-04:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://clnhlzmn.github.io/blog/programming/2019/04/17/copper-kitten.html"},"url":"https://clnhlzmn.github.io/blog/programming/2019/04/17/copper-kitten.html","description":"CopperKitten is an exercise in programming language and runtime design and implementation. Check out the code here and read on for more explanation.","headline":"CopperKitten","dateModified":"2019-04-17T17:00:00-04:00","datePublished":"2019-04-17T17:00:00-04:00","@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://clnhlzmn.github.io/blog/feed.xml" title="Colin Holzman" /></head>
+<body><header class="site-header">
+
+    <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Colin Holzman</a><nav class="site-nav">
+                <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                <label for="nav-trigger">
+                    <span class="menu-icon">
+                        <svg viewBox="0 0 18 15" width="18px" height="15px">
+                            <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                        </svg>
+                    </span>
+                </label>
+
+                <div class="trigger"><a class="page-link" href="/blog/about/">About</a><a class="page-link" href="/blog/gallery/">Gallery</a></div>
+            </nav></div>
+</header><main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">CopperKitten</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-04-17T17:00:00-04:00" itemprop="datePublished">Apr 17, 2019
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>CopperKitten is an exercise in programming language and runtime design and implementation. Check out the code <a href="https://github.com/clnhlzmn/CopperKitten">here</a> and read on for more explanation.</p>
+
+<p>This project is far from complete. It will probably never be fully complete. I have a few features that I would like to implement before I put it aside. I am writing this post to introduce what I have done so far and invite comments and discussion.</p>
+
+<p>CK is a simple functional language with Hindley Milner type inference. Its compiler and assembler are currently implemented in Kotlin. The compiler (<a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/">ckc</a>), for now, compiles a single ‘script’ file to its corresponding portable assembly listing, and then the assembler (<a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/cka/">cka</a>) assembles that listing to a portable C99 program. An example of this can be seen in the makefile <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/makefile">here</a>. Using the makefile requires java and gcc. The script <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/simple_io.ck">simple_io.ck</a> is intended to illustrate features of the language that have been implemented so far.</p>
+
+<h2 id="the-language">The Language</h2>
+
+<h3 id="built-in-types">Built-in Types</h3>
+
+<p>There are three built in types in CK: <code class="highlighter-rouge">Unit</code>, <code class="highlighter-rouge">Int</code>, and <code class="highlighter-rouge">Fun(A, ..., R)</code>. The first is the usual unit type with exactly one value. The second is a signed integer implemented by the C type <code class="highlighter-rouge">intptr_t</code>. The third type <code class="highlighter-rouge">Fun(A, ..., R)</code> is the function type where <code class="highlighter-rouge">A, ...</code> represents argument types and <code class="highlighter-rouge">R</code> is the return type. The function type can also be written as <code class="highlighter-rouge">(A, ...) R</code>.</p>
+
+<h3 id="user-defined-types">User Defined Types</h3>
+
+<p>Users can define their own types using a <code class="highlighter-rouge">type ...</code> declaration at the beginning of a CK file. For example the declaration <code class="highlighter-rouge">type List = (A) nil() | cons(A, List(A))</code> creates the type <code class="highlighter-rouge">List(A)</code> where <code class="highlighter-rouge">A</code> can be any type. User defined types are implemented as a number of compiler generated functions. Pattern matching, when implemented, will use these functions behind the scenes. Until then, the programmer can use them to construct and deconstruct values of user defined types.</p>
+
+<h3 id="ck-programs">CK Programs</h3>
+
+<p>For now a CK program consists of a single .ck file. A .ck file is zero or more declarations followed by an expression. In the <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/grammar/ck.g4">grammar</a> there are two types of declaration, but for now only <code class="highlighter-rouge">typeDecl</code> is implemented. The type declarations cause a number of functions to be implemented by the compiler for use in the following expression. Evaluation of the expression in the .ck file is evaluation of the CK program. In the future I would like to add support for multiple files.</p>
+
+<h3 id="expressions">Expressions</h3>
+
+<p>The grammar of expressions includes</p>
+
+<ul>
+  <li>
+    <p>unit</p>
+
+    <p><code class="highlighter-rouge">()</code></p>
+  </li>
+  <li>
+    <p>integers</p>
+
+    <p><code class="highlighter-rouge">0</code>, <code class="highlighter-rouge">1</code>, <code class="highlighter-rouge">1000000000000000</code></p>
+  </li>
+  <li>
+    <p>all the usual unary and binary operations on integers</p>
+
+    <p><code class="highlighter-rouge">a + b</code>, <code class="highlighter-rouge">-42</code>, <code class="highlighter-rouge">a || (b &lt;&gt; c)</code></p>
+
+    <p>All unary and binary operators take arguments of type <code class="highlighter-rouge">Int</code> and return values of type <code class="highlighter-rouge">Int</code></p>
+  </li>
+  <li>
+    <p>functions</p>
+
+    <p><code class="highlighter-rouge">(a) a</code>, <code class="highlighter-rouge">(a, b) a + b</code>, <code class="highlighter-rouge">(n) n * n</code></p>
+
+    <p>CK supports limited tail call optimization. For a function call in tail position, if the callee has the same number of arguments as the caller, then the stack frame is reused, otherwise the call will create a new stack frame.</p>
+  </li>
+  <li>
+    <p>function applications</p>
+
+    <p><code class="highlighter-rouge">id(42)</code>, <code class="highlighter-rouge">add(1, 2)</code>, <code class="highlighter-rouge">map(aList, (e) e * e)</code></p>
+
+    <p>CK uses eager evaluation.</p>
+  </li>
+  <li>
+    <p>two forms of conditional expression</p>
+
+    <p><code class="highlighter-rouge">cond() ? true() : false()</code></p>
+
+    <p><code class="highlighter-rouge">if (cond()) true() else false()</code></p>
+
+    <p><code class="highlighter-rouge">if (cond()) true()</code></p>
+
+    <p>Consequent and alternate expressions of a conditional expression must have the same type. An <code class="highlighter-rouge">if</code> without an <code class="highlighter-rouge">else</code> has type <code class="highlighter-rouge">Unit</code> (that means the consequent must have type <code class="highlighter-rouge">Unit</code>). Condition expressions must have type <code class="highlighter-rouge">Int</code> where 0 is false and 1 is true, for now. I intend to add a true boolean type at some point.</p>
+  </li>
+  <li>
+    <p>sequence expressions</p>
+
+    <p><code class="highlighter-rouge">{ a; b }</code></p>
+
+    <p><code class="highlighter-rouge">a</code> is evaluated and its result discarded, then <code class="highlighter-rouge">b</code> is evaluated and its value is the value of <code class="highlighter-rouge">{ a; b }</code>.</p>
+  </li>
+  <li>
+    <p>and let expressions</p>
+
+    <p><code class="highlighter-rouge">let id = (a) a</code>, <code class="highlighter-rouge">let rec forever = (f) { f(); forever(f) }</code>, <code class="highlighter-rouge">{ let id = (a) a; id(42) }</code></p>
+
+    <p>The scope of a let expression is the rest of the expressions in its enclosing sequence. That is <code class="highlighter-rouge">{let id = (a) a; id(42)}</code> can be thought of as <code class="highlighter-rouge">let id = (a) a in id(42)</code>.</p>
+  </li>
+  <li>
+    <p>tuples and strings are included in the grammar, but they’re not yet implemented</p>
+  </li>
+</ul>
+
+<p>Note that type annotations are not required. For clarity the programmer can annotate the types of let bound variables, functions parameters, and function return types using the <code class="highlighter-rouge">: T</code> syntax. For example <code class="highlighter-rouge">let id: (A) A = (a: A):A a</code>. Type annotations are not yet fully implemented, but it should be an easy feature to finish. At the moment there are not any situations that <em>require</em> annotations. I would like to add record types and corresponding accessor syntax such as <code class="highlighter-rouge">a.b</code> which will, as far as I know, require limited type annotations.</p>
+
+<h3 id="c-language-bindings">C Language Bindings</h3>
+
+<p>Another type of function expression is <code class="highlighter-rouge">cfun</code>. These can be used any place an ordinary function expression can be used. <code class="highlighter-rouge">cfun</code> is used to create a binding to a function defined in C for doing IO and whatever else you would rather do in C. In the <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/simple_io.ck">example</a> there are two <code class="highlighter-rouge">cfun</code>s that are used to read and write characters on <code class="highlighter-rouge">stdout</code>/<code class="highlighter-rouge">stdin</code>. A <code class="highlighter-rouge">cfun</code> looks like <code class="highlighter-rouge">cfun id Type</code> where <code class="highlighter-rouge">id</code> is the identifier that matches the identifier of the function in C and <code class="highlighter-rouge">Type</code> is the type of that function. The <code class="highlighter-rouge">native_read</code> and <code class="highlighter-rouge">native_write</code> functions are implemented <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/runtime/builtin_cfuns.c">here</a>. The file that defines the native functions must be compiled and linked with the output from ckc/cka (this is illustrated <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/makefile">here</a>).</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>The implementation of CK includes a compiler, assembler, and runtime.</p>
+
+<h3 id="compiler">Compiler</h3>
+
+<p>The CK compiler (<a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/">ckc</a>) takes a single file (program.ck) and compiles it to a CK assembly file (program.cka). Compilation proceeds in a few steps:</p>
+
+<ol>
+  <li>
+    <p>Parse program.ck using ANTLR4.</p>
+
+    <p>ANTLR4 generates the <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/gen/">classes</a> required to parse a CK file based on the grammar <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/grammar/ck.g4">ck.g4</a>.</p>
+  </li>
+  <li>
+    <p>Convert the ast that is produced by ANTLR to a simpler ast that is easier to work with.</p>
+
+    <p>The class CkBaseVisitor (generated by ANTLR) is extended <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/grammar/visitors">here</a> to convert the ANTLR generated ast into a <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/ast/node/">simpler representation</a>. The CkBaseVisitor extensions are used to parse program.ck <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/grammar/Parse.kt">here</a> and return the simpler ast.</p>
+  </li>
+  <li>
+    <p>Type check the program.</p>
+
+    <p>Type checking is implemented <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/analyze/Analyze.kt">here</a>. The type checker is based on the example implementation at the end of <a href="http://lucacardelli.name/Papers/BasicTypechecking.pdf">“Basic Polymorphic Typechecking” by Luca Cardelli</a>.</p>
+  </li>
+  <li>
+    <p>Compile the program.</p>
+
+    <p>Compilation is done by the <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/ast/visitors/CompilationVisitor.kt">CompilationVisitor</a> class. For now this amounts to visiting the ast and returning a list of assembler instructions.</p>
+  </li>
+</ol>
+
+<p>The <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/ckc/src/ck/Cli.kt">command line option parser</a> is used when ckc is invoked on the command line. It parses command line options, reads the input file, performs the compilation steps above, and writes the output to the specified output file.</p>
+
+<h3 id="assembler">Assembler</h3>
+
+<p>The CK assembler (<a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/cka/">cka</a>) takes a single program.cka file and converts it to a C99 file. The main task of the assembler is to convert the <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/compiler/cka/grammar/cka.g4">abstract assembler syntax</a> into a list of concrete bytecodes and literal values to be consumed by the runtime vm. Part of cka’s task is to generate layout functions to be used by the memory management scheme to identify pointers on the stack and in heap allocated objects. Another thing that the assembler does is combine the program bytecode array, generated functions, and other supporting pieces together into a .c file with a <code class="highlighter-rouge">main</code> function that initializes the CK runtime and starts execution.</p>
+
+<p>I won’t go into too much detail on cka here unless there is interest. It’s pretty boring and mostly self explanatory.</p>
+
+<p>The output of cka must be compiled and linked with any files containing definitions of <code class="highlighter-rouge">cfun</code>s and with the chosen garbage collection implementation file (one of copying_gc.c, incremental_gc.c, or mark_compact_gc.c). Again, the example <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/example/simple/makefile">makefile</a> demonstrates this.</p>
+
+<h3 id="runtime">Runtime</h3>
+
+<p>The CK runtime is a simple bytecode interpreter combined with one of three tracing garbage collection implementations. I could have implemented CK by compiling directly to C, rather than using a vm, but I wanted to be able to support tail call optimization and I couldn’t see how to do that in plain C.</p>
+
+<h4 id="vm">VM</h4>
+
+<p>The CK vm is implemented by <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/runtime/vm.h">vm.h</a>. Opcodes are enumerated in the type <code class="highlighter-rouge">enum vm_op_code</code> and are reasonably well documented there. In addition to the usual arithmetic operations there are some for control flow, stack frame management, memory allocation, storing/loading values to/from indices into heap objects/stack frames/function arguments/function captures, and some other miscellaneous operations. Program execution is done by the function <code class="highlighter-rouge">vm_execute</code> which simply iterates over the given program array dispatching on each op code.</p>
+
+<h4 id="memory-management">Memory Management</h4>
+
+<p>There are two copying collectors (one incremental) and one mark compact. I hope they can be used as examples for people who are curious about how garbage collection works. The garbage collectors all depend on <a href="https://github.com/clnhlzmn/CopperKitten/blob/master/runtime/gc_interface.h">gc_interface.h</a> which declares a common set of functions with which the vm can interface with the heap memory. There are probably subtle bugs in the implementations of the garbage collectors. I am most confident in the correctness of the simple copying collector, least confident in the incremental copying collector, and the mark compact collector is somewhere in between.</p>
+
+<h2 id="future-work">Future Work</h2>
+
+<p>This is work that I would like to do on this project in the future.</p>
+
+<ul>
+  <li>
+    <p>clean up, organize, and simplify: compiler, assembler, and runtime source files</p>
+  </li>
+  <li>
+    <p>integrate programmer type annotations with type checker</p>
+  </li>
+  <li>
+    <p>strings and tuples</p>
+  </li>
+  <li>
+    <p>pattern matching on instances of user defined types</p>
+  </li>
+  <li>
+    <p>modules</p>
+  </li>
+  <li>
+    <p>implement parser and CLI in Kotlin (removing ANTLR and Apache CLI dependencies)</p>
+  </li>
+  <li>
+    <p>implement compiler and assembler in functional language like ML (or at least in a functional style in Kotlin)</p>
+  </li>
+  <li>
+    <p>implement compiler and assembler in CK</p>
+  </li>
+  <li>
+    <p>generate machine code rather than C99</p>
+  </li>
+  <li>
+    <p>optimize polymorphic functions to not always use boxed types for integers</p>
+  </li>
+  <li>
+    <p>lots of other optimizations</p>
+  </li>
+</ul>
+
+<p>Thanks for making it this far! Let me know what you think with a comment below.</p>
+
+
+  </div>
+
+  <div class="just-comments" data-apikey="a50b7eb6-c26f-4728-b3ac-4c68e1db19eb" data-recaptcha="true"></div><script async src="https://just-comments.com/w.js"></script>
+
+  <a class="u-url" href="/blog/programming/2019/04/17/copper-kitten.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Colin Holzman</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Colin Holzman</li><li><a class="u-email" href="mailto:colinholzman@protonmail.com">colinholzman@protonmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/clnhlzmn"><svg class="svg-icon"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg> <span class="username">clnhlzmn</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Mostly an experiment in setting up and running a server/blog. I also occasionally think of things to write about so maybe  I&#39;ll do that here.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
