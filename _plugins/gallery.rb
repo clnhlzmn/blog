@@ -8,6 +8,7 @@
 
 require 'date'
 require 'fileutils'
+require 'json'
 require 'mini_magick'
 
 module GalleryGenerator
@@ -19,6 +20,7 @@ module GalleryGenerator
             img_path = File.join(assets_path, "img")
             html_path = File.join(assets_path, "html")
             includes_path = File.join(site.source, "_includes")
+            layouts_path = File.join(site.source, "_layouts")
             
             if File.directory?(gallery_path)
             
@@ -51,7 +53,7 @@ module GalleryGenerator
                     image_data << 
                         { 
                             'filename' => image_name, 
-                            'aspectRatio' => image.width / image.height
+                            'aspectRatio' => image.width.to_f / image.height
                         }
                     
                     #create thumbs
@@ -70,7 +72,7 @@ module GalleryGenerator
                     end
                     
                     full_size_html =
-                        '---
+'---
 layout: post
 title: "' + image_name + '"
 date: "' + image_date.to_s + '"
@@ -78,10 +80,16 @@ exclude: true
 ---
 <img src="/assets/img/1024/' + image_name + '"></img>'
                     
+                    #create full size image page html for each image
                     File.open(File.join(html_path, image_name + ".html"), 'w') { |file| 
                         file.write(full_size_html) 
                     }
                     
+                }
+                
+                #create gallery_data include file
+                File.open(File.join(includes_path, "gallery_data.html"), 'w') { |file|
+                    file.write('var imageData = ' + image_data.to_json() + ';')
                 }
                 
             end
