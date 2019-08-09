@@ -65,10 +65,18 @@ module GalleryGenerator
                     }
                     
                     image_date = ""
-                    begin 
-                        image_date = Date.strptime(image_name[0, 10], "%Y-%m-%d")
+                    begin
+                        exif_date = image.exif['DateTimeOriginal']
+                        if exif_date == nil
+                            #no exif date, try to get from file name
+                            image_date = Date.strptime(image_name[0, 10], "%Y-%m-%d")
+                        else
+                            #try to get the image date from exif
+                            image_date = Date.strptime(exif_date[0, 10], "%Y:%m:%d")
+                        end
                     rescue
-                        #get the date from exif or file if available
+                        #get the date from file if possible
+                        image_date = ""
                     end
                     
                     full_size_html =
