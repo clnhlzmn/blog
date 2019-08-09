@@ -10,9 +10,9 @@ permalink: /gallery/
 var options = {
     urlForSize: function(filename, size) {
         if (size === 1024)
-            return '/assets/html/' + filename + '.html';
+            return '{{site.baseurl}}/assets/html/' + filename + '.html';
         else 
-            return '/assets/img/' + size + '/' + filename;
+            return '{{site.baseurl}}/assets/img/' + size + '/' + filename;
     }
 };
 var pig = new Pig(imageData, options).enable();

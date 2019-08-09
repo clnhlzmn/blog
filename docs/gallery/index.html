@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://clnhlzmn.github.io/blog/gallery/" />
 <meta property="og:site_name" content="Colin Holzman" />
 <script type="application/ld+json">
-{"url":"https://clnhlzmn.github.io/blog/gallery/","description":"Mostly an experiment in setting up and running a server/blog. I also occasionally think of things to write about so maybe I’ll do that here.","headline":"Gallery","@type":"WebPage","@context":"http://schema.org"}</script>
+{"url":"https://clnhlzmn.github.io/blog/gallery/","description":"Mostly an experiment in setting up and running a server/blog. I also occasionally think of things to write about so maybe I’ll do that here.","@type":"WebPage","headline":"Gallery","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://clnhlzmn.github.io/blog/feed.xml" title="Colin Holzman" /></head>
 <body><header class="site-header">
@@ -46,9 +46,9 @@ var imageData = [{"filename":"2018-06-07-Nora-sitting.jpg","aspectRatio":1.33300
 var options = {
     urlForSize: function(filename, size) {
         if (size === 1024)
-            return '/assets/html/' + filename + '.html';
+            return '/blog/assets/html/' + filename + '.html';
         else 
-            return '/assets/img/' + size + '/' + filename;
+            return '/blog/assets/img/' + size + '/' + filename;
     }
 };
 var pig = new Pig(imageData, options).enable();
