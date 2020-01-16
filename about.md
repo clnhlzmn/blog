@@ -4,4 +4,4 @@ title: About
 permalink: /about/
 ---
 
-An experiment in running a website and blog.
+I am a husband, an engineer, a cat person, a cyclist, a runner, a programmer, and many other things.
