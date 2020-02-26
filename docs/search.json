@@ -1,0 +1,58 @@
+[
+  
+    {
+
+      "title"    : "Wedding",
+      "url"      : "/2019/07/20/wedding",
+      "category" : "self",
+      "tags"     : "self, wedding, wife, family",
+      "date"     : "2019-07-20 00:00:00 -0400",
+      "discription" : ""
+
+    } ,
+  
+    {
+
+      "title"    : "Jekyll and pig.js",
+      "url"      : "/2019/04/22/jekyll-and-pig",
+      "category" : "programming",
+      "tags"     : "website, blog, jekyll",
+      "date"     : "2019-04-22 09:00:00 -0400",
+      "discription" : ""
+
+    } ,
+  
+    {
+
+      "title"    : "CopperKitten",
+      "url"      : "/2019/04/17/copper-kitten",
+      "category" : "programming",
+      "tags"     : "languages, cs, design",
+      "date"     : "2019-04-17 17:00:00 -0400",
+      "discription" : ""
+
+    } ,
+  
+    {
+
+      "title"    : "website updates",
+      "url"      : "/2018/12/07/website-updates",
+      "category" : "internet",
+      "tags"     : "",
+      "date"     : "2018-12-07 16:24:00 -0500",
+      "discription" : ""
+
+    } ,
+  
+    {
+
+      "title"    : "colinholzman.xyz",
+      "url"      : "/2018/11/27/colinholzman-xyz",
+      "category" : "meta",
+      "tags"     : "",
+      "date"     : "2018-11-27 07:00:00 -0500",
+      "discription" : ""
+
+    } 
+  
+]

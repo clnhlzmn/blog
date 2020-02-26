@@ -1,6 +1,6 @@
-site: Sidey
-url: #yoururl
-title: Sidey
+site: colinholzman
+url: https://colinholzman.xyz
+title: Colin Holzman
 description: Simple and minimalistic jekyll blogging theme.
 twitter:
   username: #yourusername
@@ -8,11 +8,26 @@ twitter:
   creator: #yourusername
 author:
   twitter: #yourusername
-  name: #yourusername
+  name: Colin Holzman
   avatar:
-  email: #youremail
+  email: me@colinholzman.xyz
   url: #yoururl
 permalink: pretty
+
+markdown: kramdown
+
+# change destination for gh pages
+destination: docs
+
+exclude:
+   - Gemfile
+   - Gemfile.lock
+   - node_modules
+   - vendor/bundle/
+   - vendor/cache/
+   - vendor/gems/
+   - vendor/ruby/
+   - gallery/
 
 baseurl: ""
 
