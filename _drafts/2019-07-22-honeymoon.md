@@ -52,3 +52,13 @@ The hike back to the car finished us off and we went back to the apartment for s
 
 # Day 5
 
+Friday morning we had our typical breakfast of croissants and espresso earlier than usual and then started driving toward Lourmarin, a small town about an hour north of Marseille. In preparation for this trip one of the things we did was watch Anthony Bourdain's Parts Unknown episode in Marseille. Of course he checks out a lot of restaurants in the city, some of which we also put on our list, but he also rented a car (his car was much cooler than ours) and drove to Lourmarin for the Friday morning market. Driving through the French countryside was a beautiful and fun. The market at Lourmarin was amazing. We bought some gifts for people back home like olive oil, honey, and ginger, and we bought ourselves some treats.
+
+{% include image.html url="/assets/img/1024/2019-07-26-Lourmarin-Market.jpg" description="Kaitlin shopping in Lourmarin" %}
+
+We said bye to Lourmarin and headed back to Marseille. One of the places Anthony Bourdain recommended was a food truck called Pizza JD. We grabbed some pizza and started driving into the national park to check out Calanque De Morgiou. It took an interesting drive down a narrow, winding mountain road to get there. There was a cute town at the end of the road on the water. We parked there and walked to a private spot on the rocks where we ate our pizza, swam a little, and watched the sunset.
+
+{% include image.html url="/assets/img/1024/2019-07-26-Calanque-Sunset.jpg" description="Sunset at Calanque De Morgiou" %}
+
+# Day 6
+
