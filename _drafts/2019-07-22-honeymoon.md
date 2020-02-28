@@ -84,6 +84,10 @@ After the break we started heading back to Marseille. On the way we passed close
 
 # Day 10
 
-Day 10 was mostly spent finding gifts for people back home. We got some cool prints from Le Typo du Panier and a few bottles of wine from Cassis. Finally we were able to get lunch at Cafe de L'Abbaye. That night we packed up for the trip back home.
+Day 10 was mostly spent finding gifts for people back home. We got some cool prints from Le Typo du Panier and a few bottles of wine from Cassis. Finally we were able to get lunch at Cafe de L'Abbaye. That night we packed up for the trip back home. 
+
+Marseille is a great place to visit. I would highly recommend checking it out. Thanks for reading.
+
+See more photos [here](/gallery).
 
 
