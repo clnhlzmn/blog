@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Colin Holzman</title>
- <link href="https://colinholzman.xyz/atom.xml" rel="self"/>
- <link href="https://colinholzman.xyz/"/>
- <updated>2020-02-27T08:54:11-05:00</updated>
- <id>https://colinholzman.xyz</id>
+ <link href="http://localhost:4000/atom.xml" rel="self"/>
+ <link href="http://localhost:4000/"/>
+ <updated>2020-02-28T11:24:11-05:00</updated>
+ <id>http://localhost:4000</id>
  <author>
    <name>Colin Holzman</name>
    <email>me@colinholzman.xyz</email>
@@ -13,10 +13,138 @@
 
  
  <entry>
+   <title>Honeymoon</title>
+   <link href="http://localhost:4000/2019/07/22/honeymoon"/>
+   <updated>2019-07-22T00:00:00-04:00</updated>
+   <id>http://localhost:4000/2019/07/22/honeymoon</id>
+   <content type="html">&lt;p&gt;Kaitlin and I decided to go to Marseille for our honeymoon. We probably could have started planning earlier, and planned more, but in the end it was an amazing time.&lt;/p&gt;
+
+&lt;h1 id=&quot;day-1&quot;&gt;Day 1&lt;/h1&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-22-Just-Arrived-in-Marseille.jpg&quot; alt=&quot;Kaitlin and I arriving at our Airbnb&quot; /&gt;
+    &lt;figcaption&gt;Kaitlin and I arriving at our Airbnb&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;We stayed at a wonderful &lt;a href=&quot;https://www.airbnb.com/rooms/18008888?s=67&amp;amp;shared_item_type=1&amp;amp;virality_entry_point=1&amp;amp;sharer_id=240584451&amp;amp;unique_share_id=5d008c1b-dc50-45c3-afd4-12a609dc6f14&quot;&gt;loft apartment&lt;/a&gt; hosted by Agnès. It was in a cool old building (like most buildings there) with three or four apartments that Agnès rented out. We arrived at the apartment around 11:00 am. It wasn’t ready yet, but Agnès gave us refreshments (it was &lt;strong&gt;hot&lt;/strong&gt;) and pointed out interesting areas of the city on some maps. As we waited for her to get the apartment ready we walked to a nearby restaurant, &lt;a href=&quot;https://www.facebook.com/Monsieur-Madame-853998998003356/&quot;&gt;Monsieur Madame&lt;/a&gt;, for lunch. After lunch we walked to le Vieux-Port de Marseille (the Old Port of Marseille). It’s the main port in the center of the city.&lt;/p&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-22-Vieux-Port-Mirror-Ceiling.jpg&quot; alt=&quot;Kaitlin and I under the mirror cieling at le Vieux-Port&quot; /&gt;
+    &lt;figcaption&gt;Kaitlin and I under the mirror cieling at le Vieux-Port&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;We checked out the shops and scenery at la Vieux-Port and then walked back to the apartment to get some rest after a long day travelling.&lt;/p&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-22-Marseille-Airbnb-Front-Door.jpg&quot; alt=&quot;Kaitlin at the front door of Maison Pépouze&quot; /&gt;
+    &lt;figcaption&gt;Kaitlin at the front door of Maison Pépouze&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;When we got back to the apartment Agnès had set up our budget air conditioner. It was a frozen water bottle, sitting in a tray to catch the condensation, in front of a fan. This was when it set in that the apartment didn’t have air conditioning and it was in the 90s (30 C). We were tired enough that it didn’t matter.&lt;/p&gt;
+
+&lt;h1 id=&quot;day-2&quot;&gt;Day 2&lt;/h1&gt;
+
+&lt;p&gt;We woke up with croissants and pain au chocolat (literally chocolate bread but more like chocolate croissants). It’s a French stereotype, but this was a common breakfast over there. We made some espresso, ate, and started getting ready for the day. We started with a short walk to a bus station near the appartment. The bus arrived and I awkwardly bought tickets from the driver (deux billet š’il vous plaît). We rode that bus for a few minutes and got off where we were supposed to transfer to another bus, but we decided to take rental scooters instead. A 15 minute scooter ride and another short bus ride later and we arrived at Callelongue, a small town at the Southern tip of Marseille on the edge of Parc national des Calanques. The calanques are basically narrow, steep walled inlets along the Mediterranean coast. We stopped for some sparkling water and then started hiking.&lt;/p&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-23-Hiking-in-the-Calanques.jpg&quot; alt=&quot;Kaitlin looking amazing at Parc national des Calanques&quot; /&gt;
+    &lt;figcaption&gt;Kaitlin looking amazing at Parc national des Calanques&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;We hiked for a while, relaxed at a secluded beach (Calanque de Marseilleveyre), and then hiked back to Callelongue where we caught the same busses back to the aparment. Later that night we got dinner at a super cute Egyptian restaurant. I had a whole fish.&lt;/p&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-23-La-Cantine-de-Nour-d'Egypte.jpg&quot; alt=&quot;Kaitlin at La Cantine de Nour d'Egypt&quot; /&gt;
+    &lt;figcaption&gt;Kaitlin at La Cantine de Nour d'Egypt&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h1 id=&quot;day-3&quot;&gt;Day 3&lt;/h1&gt;
+
+&lt;p&gt;After we woke we walked to a nearby bakery to get the French breakfast. Unfortunately, we were late and they were out of croissants! Oh well. We got a baguette instead. Another French stereotype that is based in at least a little truth is the popularity of the baguette. I guess about one in every four people we saw on the street was carrying or actively eating a baguette. After breakfast we took scooters to MuCEM (Museum of Civilizations of Europe and the Mediterranean). It is a beautiful building in a beautiful location and the exhibits were interesting too.&lt;/p&gt;
+
+&lt;p&gt;The oldest district in the city, Le Panier, is adjacent to the museum. After we left the museum we walked around Le Panier for a while. Most of Marseille feels old, but Le Panier especially so. The streets are too narrow for cars and mostly paved with blocks. There are a lot of interesting shops and restaurants packed in. We made dinner reservations at a highly rated restaurant Au Coeur du Panier (in the heart of the basket), and then got lunch at an African place, Marafiki Coin Tropical, where the best they had for Kait was some kind of a salad, but I got another whole fish with fried plantains (yum).&lt;/p&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-24-Kaitlin-at-Marafiki-Coin-Tropical.jpg&quot; alt=&quot;Kaitlin at Marafiki Coin Tropical&quot; /&gt;
+    &lt;figcaption&gt;Kaitlin at Marafiki Coin Tropical&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;After lunch we checked out the nearby mall (Les Terrasses Du Port) which aside from being gigantic was a pretty standard and boring mall. We got ice cream and took the tram back to the apartment for a nap. Later that day we went back down to Le Panier for our dinner. I had Coquilles St Jacques snackées (scallops) and Kait had some kind of cheesy potatoes. A little wandering and a tram ride later and we were back at the apartment for bed.&lt;/p&gt;
+
+&lt;h1 id=&quot;day-4&quot;&gt;Day 4&lt;/h1&gt;
+
+&lt;p&gt;Croissants for breakfast again, followed by a bus ride to the rental car place to pick up our rental. We had planned a trip for the next day, but were picking up the car a day early. The car we got was a little 5 speed Peugeot that was a blast to drive. Driving in Marseille was nerve wracking, but once we were on the highway it was not very different from driving in the United States. We headed from the car rental to Cassis, a smaller town just east of Marseille. Cassis is known for its wine making and the road overlooking the wineries when driving in was great. We weren’t there for the wine though. We stopped at a store for supplies, found a parking spot as close as possible, and started hiking toward a calanque on the East end of Parc national des Calanques called Calanque d’En-Vau. This calanque is particularly beautiful, but also quite secluded. The hike was long and hot so it felt great to relax on the beach and swim a little.&lt;/p&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-25-Relaxing-in-the-Calanques.jpg&quot; alt=&quot;On the beach at Calanque d'En-Vau&quot; /&gt;
+    &lt;figcaption&gt;On the beach at Calanque d'En-Vau&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The hike back to the car finished us off and we went back to the apartment for sleep. We still hadn’t fully recovered from the flight at this point.&lt;/p&gt;
+
+&lt;h1 id=&quot;day-5&quot;&gt;Day 5&lt;/h1&gt;
+
+&lt;p&gt;Friday morning we had our typical breakfast of croissants and espresso earlier than usual and then started driving toward Lourmarin, a small town about an hour north of Marseille. In preparation for this trip one of the things we did was watch Anthony Bourdain’s Parts Unknown episode in Marseille. Of course he checks out a lot of restaurants in the city, some of which we also put on our list, but he also rented a car (his car was much cooler than ours) and drove to Lourmarin for the Friday morning market. Driving through the French countryside was a beautiful and fun. The market at Lourmarin was amazing. We bought some gifts for people back home like olive oil, honey, and ginger, and we bought ourselves some treats.&lt;/p&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-26-Lourmarin-Market.jpg&quot; alt=&quot;Kaitlin shopping in Lourmarin&quot; /&gt;
+    &lt;figcaption&gt;Kaitlin shopping in Lourmarin&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;We said bye to Lourmarin and headed back to Marseille. One of the places Anthony Bourdain recommended was a food truck called Pizza JD. We grabbed some pizza and started driving into the national park to check out Calanque De Morgiou. It took an interesting drive down a narrow, winding mountain road to get there. There was a cute town at the end of the road on the water. We parked there and walked to a private spot on the rocks where we ate our pizza, swam a little, and watched the sunset.&lt;/p&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-26-Calanque-Sunset.jpg&quot; alt=&quot;Sunset at Calanque De Morgiou&quot; /&gt;
+    &lt;figcaption&gt;Sunset at Calanque De Morgiou&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h1 id=&quot;day-6&quot;&gt;Day 6&lt;/h1&gt;
+
+&lt;p&gt;On day 6 we dropped the car off and walked around the Basilique Notre-Dame-de-la-Garde. It’s a giant, old curch on a hight point. There are small model boats hanging from the ceiling inside. I guess sailors used to leave them as tribute to the mother of Christ who saved them from shipwreck. Notre-Dame-de-la-Garde still has bullet holes from WW2.&lt;/p&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-27-Notre-Dame-de-la-Garde.jpg&quot; alt=&quot;View from Notre-Dame-de-la-Garde&quot; /&gt;
+    &lt;figcaption&gt;View from Notre-Dame-de-la-Garde&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h1 id=&quot;day-7&quot;&gt;Day 7&lt;/h1&gt;
+
+&lt;p&gt;Day 7 was spent mostly walking around the area around Vieux Port. We got lunch at another Anthony Bourdain recommended restaurant Le Fémina.&lt;/p&gt;
+
+&lt;h1 id=&quot;day-8&quot;&gt;Day 8&lt;/h1&gt;
+
+&lt;p&gt;This was the most interesting day for me. We had our usual breakfast at the apartment, took the tram to Vieux-Port, had second breakfast at a cute little cafe overlooking the port, and then boarded the Goelette Alliance.&lt;/p&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-29-Kaitlin-Sailing.jpg&quot; alt=&quot;On the Goelette Alliance&quot; /&gt;
+    &lt;figcaption&gt;On the Goelette Alliance&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The Alliance is an old fishing boat turned sail boat that goes out for tours of the Mediterranean coast near Marseille. We set out, motoring and not sailing, around 10:30 am and headed east. At about 1 pm we arrived at Calanque de Sugiton. The Alliance provided a tasty cold lunch and we took some time to swim. At this point in the trip the temperature had dropped a lot and the water was now too cool for me, but I did get in for at least a few seconds.&lt;/p&gt;
+
+&lt;figure class=&quot;image&quot;&gt;
+    &lt;img src=&quot;/assets/img/1024/2019-07-29-Colin-and-Kaitlin-Sailing.jpg&quot; alt=&quot;On the Goelette Alliance&quot; /&gt;
+    &lt;figcaption&gt;On the Goelette Alliance&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;After the break we started heading back to Marseille. On the way we passed close to Château d’If, where part of the novel The Count of Monte Cristo was set. Later that night we failed a second time to eat at Bourdain’s recommended Cafe de L’Abbaye (didn’t serve dinner) so we got Italian instead.&lt;/p&gt;
+
+&lt;h1 id=&quot;day-10&quot;&gt;Day 10&lt;/h1&gt;
+
+&lt;p&gt;Day 10 was mostly spent finding gifts for people back home. We got some cool prints from Le Typo du Panier and a few bottles of wine from Cassis. Finally we were able to get lunch at Cafe de L’Abbaye. That night we packed up for the trip back home.&lt;/p&gt;
+
+&lt;p&gt;Marseille is a great place to visit. I would highly recommend checking it out. Thanks for reading.&lt;/p&gt;
+
+&lt;p&gt;See more photos &lt;a href=&quot;/gallery&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
    <title>Wedding</title>
-   <link href="https://colinholzman.xyz/2019/07/20/wedding"/>
+   <link href="http://localhost:4000/2019/07/20/wedding"/>
    <updated>2019-07-20T00:00:00-04:00</updated>
-   <id>https://colinholzman.xyz/2019/07/20/wedding</id>
+   <id>http://localhost:4000/2019/07/20/wedding</id>
    <content type="html">&lt;p&gt;I proposed to Kaitlin around the middle of August 2018. I was nervous. Thankfully she said yes. I wasn’t surprised; we had discussed marriage. I had asked her dad for permission the previous day so I think she saw it coming. We decided to have the wedding in the Summer of 2019 and started looking for locations immediately.&lt;/p&gt;
 
 &lt;figure class=&quot;image&quot;&gt;
@@ -139,9 +267,9 @@
  
  <entry>
    <title>Jekyll and pig.js</title>
-   <link href="https://colinholzman.xyz/2019/04/22/jekyll-and-pig"/>
+   <link href="http://localhost:4000/2019/04/22/jekyll-and-pig"/>
    <updated>2019-04-22T09:00:00-04:00</updated>
-   <id>https://colinholzman.xyz/2019/04/22/Jekyll-and-PIG</id>
+   <id>http://localhost:4000/2019/04/22/Jekyll-and-PIG</id>
    <content type="html">&lt;h2 id=&quot;photo-gallery&quot;&gt;Photo Gallery&lt;/h2&gt;
 
 &lt;p&gt;I tried using &lt;a href=&quot;https://github.com/ElasticDesigns/jekyll-lens&quot;&gt;Jekyll Lens&lt;/a&gt; for a photo gallery on &lt;a href=&quot;https://colinholzman.xyz&quot;&gt;colinholzman.xyz&lt;/a&gt;. It worked and was easy to use but was not exactly what I wanted. While looking for a better method I came across &lt;a href=&quot;https://chuckleplant.github.io/2018/08/06/pig-img-gallery.html&quot;&gt;this&lt;/a&gt; post by Sergio Basurco. In it he describes how he modified the &lt;a href=&quot;https://github.com/aerobless/jekyll-photo-gallery&quot;&gt;Jekyll Photo Gallery&lt;/a&gt; plugin to use &lt;a href=&quot;https://github.com/schlosser/pig.js&quot;&gt;pig.js&lt;/a&gt; for loading images. Pig.js is a simple and lightweight JavaScript library to enable progressive loading of images as the user scrolls to them. The &lt;a href=&quot;https://feeding.schlosser.io/&quot;&gt;example&lt;/a&gt; is exactly the effect that I was looking for.&lt;/p&gt;
@@ -185,9 +313,9 @@
  
  <entry>
    <title>CopperKitten</title>
-   <link href="https://colinholzman.xyz/2019/04/17/copper-kitten"/>
+   <link href="http://localhost:4000/2019/04/17/copper-kitten"/>
    <updated>2019-04-17T17:00:00-04:00</updated>
-   <id>https://colinholzman.xyz/2019/04/17/copper-kitten</id>
+   <id>http://localhost:4000/2019/04/17/copper-kitten</id>
    <content type="html">&lt;p&gt;CopperKitten is an exercise in programming language and runtime design and implementation. Check out the code &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten&quot;&gt;here&lt;/a&gt; and read on for more explanation.&lt;/p&gt;
 
 &lt;p&gt;This project is far from complete. It will probably never be fully complete. I have a few features that I would like to implement before I put it aside. I am writing this post to introduce what I have done so far and invite comments and discussion.&lt;/p&gt;
@@ -380,9 +508,9 @@
  
  <entry>
    <title>website updates</title>
-   <link href="https://colinholzman.xyz/2018/12/07/website-updates"/>
+   <link href="http://localhost:4000/2018/12/07/website-updates"/>
    <updated>2018-12-07T16:24:00-05:00</updated>
-   <id>https://colinholzman.xyz/2018/12/07/website-updates</id>
+   <id>http://localhost:4000/2018/12/07/website-updates</id>
    <content type="html">&lt;h3 id=&quot;photos&quot;&gt;Photos&lt;/h3&gt;
 
 &lt;p&gt;There are some really neat themes for Jekyll for all sorts of things. I found one for a photo gallery and set it up at &lt;a href=&quot;https://colinholzman.xyz/photos&quot;&gt;colinholzman.xyz/photos&lt;/a&gt;. Not a lot of photos up there at the moment, but that’ll change.&lt;/p&gt;
@@ -416,9 +544,9 @@ app.get('/resume.pdf', (req, res) =&amp;gt; {
  
  <entry>
    <title>colinholzman.xyz</title>
-   <link href="https://colinholzman.xyz/2018/11/27/colinholzman-xyz"/>
+   <link href="http://localhost:4000/2018/11/27/colinholzman-xyz"/>
    <updated>2018-11-27T07:00:00-05:00</updated>
-   <id>https://colinholzman.xyz/2018/11/27/colinholzman-xyz</id>
+   <id>http://localhost:4000/2018/11/27/colinholzman-xyz</id>
    <content type="html">&lt;p&gt;I’ve wanted to learn what it takes to run a website. Finally I’ve put together &lt;a href=&quot;https://colinholzman.xyz&quot;&gt;colinholzman.xyz&lt;/a&gt;. This is based on knowledge found all over the internet and through trial and error. It’s fitting to write down some instructions on how to reproduce it as the first post.&lt;/p&gt;
 
 &lt;h3 id=&quot;get-a-host-to-serve-your-site&quot;&gt;get a host to serve your site&lt;/h3&gt;
