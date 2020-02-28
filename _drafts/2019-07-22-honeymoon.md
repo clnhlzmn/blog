@@ -62,3 +62,16 @@ We said bye to Lourmarin and headed back to Marseille. One of the places Anthony
 
 # Day 6
 
+On day 6 we dropped the car off and walked around the Basilique Notre-Dame-de-la-Garde. It's a giant, old curch on a hight point. There are small model boats hanging from the ceiling inside. I guess sailors used to leave them as tribute to the mother of Christ who saved them from shipwreck. Notre-Dame-de-la-Garde still has bullet holes from WW2.
+
+{% include image.html url="/assets/img/1024/2019-07-27-Notre-Dame-de-la-Garde.jpg" description="View from Notre-Dame-de-la-Garde" %}
+
+# Day 7
+
+Day 7 was spent mostly walking around the area around Vieux Port. We got lunch at another Anthony Bourdain recommended restaurant Le Fémina.
+
+# Day 8
+
+This was the most interesting day for me. We had our usual breakfast at the apartment, took the tram to Vieux-Port, had second breakfast at a cute little cafe overlooking the port, and then boarded the Goelette Alliance.
+
+{% include image.html url="/assets/img/1024/2019-07-29-Kaitlin-Sailing.jpg" description="On the Goelette Alliance" %}
