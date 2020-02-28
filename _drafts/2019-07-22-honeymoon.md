@@ -75,3 +75,15 @@ Day 7 was spent mostly walking around the area around Vieux Port. We got lunch a
 This was the most interesting day for me. We had our usual breakfast at the apartment, took the tram to Vieux-Port, had second breakfast at a cute little cafe overlooking the port, and then boarded the Goelette Alliance.
 
 {% include image.html url="/assets/img/1024/2019-07-29-Kaitlin-Sailing.jpg" description="On the Goelette Alliance" %}
+
+The Alliance is an old fishing boat turned sail boat that goes out for tours of the Mediterranean coast near Marseille. We set out, motoring and not sailing, around 10:30 am and headed east. At about 1 pm we arrived at Calanque de Sugiton. The Alliance provided a tasty cold lunch and we took some time to swim. At this point in the trip the temperature had dropped a lot and the water was now too cool for me, but I did get in for at least a few seconds.
+
+{% include image.html url="/assets/img/1024/2019-07-29-Colin-and-Kaitlin-Sailing.jpg" description="On the Goelette Alliance" %}
+
+After the break we started heading back to Marseille. On the way we passed close to Château d'If, where part of the novel The Count of Monte Cristo was set. Later that night we failed a second time to eat at Bourdain's recommended Cafe de L'Abbaye (didn't serve dinner) so we got Italian instead.
+
+# Day 10
+
+Day 10 was mostly spent finding gifts for people back home. We got some cool prints from Le Typo du Panier and a few bottles of wine from Cassis. Finally we were able to get lunch at Cafe de L'Abbaye. That night we packed up for the trip back home.
+
+
