@@ -6,14 +6,17 @@ permalink: /gallery
 <div id="pig"></div>
 <script src="{{site.baseurl}}/assets/js/pig.min.js"></script>
 <script>
-{% include gallery_data.html %}
-var options = {
-    urlForSize: function(filename, size) {
-        return '{{site.baseurl}}/assets/img/' + size + '/' + filename;
-    },
-    onClickHandler: function(filename) {
-        window.location.href = '{{site.baseurl}}/assets/html/' + filename;
+var pig = new Pig(
+    {% include gallery_data.html %},
+    {
+        containerId: 'pig',
+        classPrefix: 'pig',
+        urlForSize: function(filename, size) {
+            return '{{site.baseurl}}/assets/img/' + size + '/' + filename;
+        },
+        onClickHandler: function(filename) {
+            window.location.href = '{{site.baseurl}}/assets/html/' + filename;
+        }
     }
-};
-var pig = new Pig(imageData, options).enable();
+).enable();
 </script>

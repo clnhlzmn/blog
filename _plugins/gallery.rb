@@ -24,6 +24,26 @@ module GalleryGenerator
             "<img src=\"{{site.baseurl}}/assets/img/1024/#{name}\"></img>\n"
         end
         
+        def gallery_html(id, image_data)
+            "<div id='#{id}'></div>\n"                                                          \
+            "<script src='{{site.baseurl}}/assets/js/pig.min.js'></script>\n"                   \
+            "<script>\n"                                                                        \
+            "var #{id}_pig = new Pig(\n"                                                        \
+            "    #{image_data.to_json()},\n"                                                    \
+            "    {\n"                                                                           \
+            "        containerId: '#{id}',\n"                                                   \
+            "        classPrefix: '#{id}',\n"                                                   \
+            "        urlForSize: function(filename, size) {\n"                                  \
+            "            return '{{site.baseurl}}/assets/img/' + size + '/' + filename;\n"      \
+            "        },\n"                                                                      \
+            "        onClickHandler: function(filename) {\n"                                    \
+            "            window.location.href = '{{site.baseurl}}/assets/html/' + filename;\n"  \
+            "        }\n"                                                                       \
+            "    }\n"                                                                           \
+            ").enable();\n"                                                                     \
+            "</script>"
+        end
+        
         #read the image data from the _includes folder
         def get_image_data(includes_path)
             image_data = []
@@ -31,7 +51,7 @@ module GalleryGenerator
             if File.exists?(File.join(includes_path, "gallery_data.html"))
                 File.open(File.join(includes_path, "gallery_data.html"), 'r') { |file|
                     #get array of image data (drop 'var imageData = ' and ';')
-                    image_data = JSON.parse(file.read[16..-2])
+                    image_data = JSON.parse(file.read)
                 }
             end
             image_data
@@ -128,7 +148,7 @@ module GalleryGenerator
                 #create gallery_data include file
                 File.open(File.join(includes_path, "gallery_data.html"), 'w') { |file|
                     image_data = image_data.sort_by { |data| data['datetime'] }
-                    file.write('var imageData = ' + image_data.to_json() + ';')
+                    file.write(image_data.to_json())
                 }
             else 
                 puts "jekyll-pig: no gallery at " << gallery_path
