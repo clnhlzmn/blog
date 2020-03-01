@@ -75,3 +75,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+
+galleries:
+    - gallery
+    - gallery2
