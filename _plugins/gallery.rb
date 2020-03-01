@@ -14,13 +14,16 @@ require 'pathname'
 
 module GalleryGenerator
     
-    class SourceGallery
-        def initialize(path)
-            pn = Pathname.new(path)
-            @path = path
-            @name = pn.base
-        end
-    end
+    #class SourceGallery
+        #def initialize(path)
+            #pn = Pathname.new(path)
+            #@path = path
+            #@name = pn.basename
+        #end
+        #def to_s
+            #"gallery: " << @path
+        #end
+    #end
 
     class GalleryGenerator < Jekyll::Generator
     
@@ -142,13 +145,31 @@ module GalleryGenerator
         end
         
         def get_galleries
-            puts Jekyll.configuration({})['galleries']
+            galleries = []
+            config_galleries = Jekyll.configuration({})['galleries']
+            if config_galleries != nil
+                config_galleries.each do |path|
+                    full_path = File.join(@site.source, path)
+                    if File.directory?(full_path)
+                        galleries << full_path
+                    end
+                end
+            else
+                default_gallery_path = File.join(@site.source, "gallery")
+                if File.directory?(default_gallery_path)
+                    galleries << default_gallery_path
+                end
+            end
+            galleries
         end
         
         def generate(site)
             @site = site
             get_paths()
-            get_galleries()
+            galleries = get_galleries()
+            galleries.each do |gallery_path|
+                puts gallery_path
+            end
             #check for gallery directory
             if File.directory?(@gallery_path)
                 #array for holding image data for later
