@@ -40,7 +40,7 @@ module GalleryGenerator
             "date: #{date.strftime("%Y-%m-%d %H:%M:%S")}\n"     \
             "exclude: true\n"                                   \
             "---\n"                                             \
-            "<img src=\"{{site.baseurl}}/assets/img/1024/#{name}\"></img>\n"    \
+            "<img src=\"{{site.baseurl}}/assets/img/1024/#{name}\"/>\n"    \
             "<div><a href=\"#{prev_url}\" style=\"display:inline;\">prev</a><a href=\"#{next_url}\" style=\"display:inline; float:right\">next</a></div>\n"
         end
         
@@ -62,6 +62,10 @@ module GalleryGenerator
             "    }\n"                                                                           \
             ").enable();\n"                                                                     \
             "</script>"
+        end
+        
+        def image_html_url(image_name)
+            "/assets/html/#{image_name}"
         end
         
         #read the image data from the _includes folder
@@ -111,8 +115,26 @@ module GalleryGenerator
             image_date
         end
         
+        def get_previous_url(image_data, image_name)
+            index = image_data.index { |data| data['filename'] == image_name }
+            index = index - 1
+            if index < 0
+                index = image_data.length - 1
+            end
+            image_html_url(image_data[index]['filename'])
+        end
+        
+        def get_next_url(image_data, image_name)
+            index = image_data.index { |data| data['filename'] == image_name }
+            index = index + 1
+            if index >= image_data.length
+                index = 0
+            end
+            image_html_url(image_data[index]['filename'])
+        end
+        
         #create thumbnails and fullsize image assets, and create full size html page for a given image
-        def process_image(gallery_path, image_name, image)
+        def process_image(image_data, gallery_path, image_name, image)
             #puts "jekyll-pig: processing " << image_name
             #create thumbs
             [1024, 500, 250, 100, 20].each { |size|
@@ -126,7 +148,7 @@ module GalleryGenerator
             }
             image_date = get_image_date(gallery_path, image_name, image)
             #create full size html text
-            full_size_html = full_size_html(image_name, image_date, "https://example.com", "https://example.com")
+            full_size_html = full_size_html(image_name, image_date, get_previous_url(image_data, image_name), get_next_url(image_data, image_name))
             #create full size image page html for each image
             full_size_html_path = File.join(@html_path, image_name + ".html")
             if not File.exists? full_size_html_path
@@ -172,6 +194,22 @@ module GalleryGenerator
             FileUtils.mkdir_p @includes_path unless File.exists? @includes_path
         end
         
+        def augment_image_data(gallery, image_data, images) 
+            images.each do |image_name, image|
+                #get image date
+                image_date = get_image_date(gallery.path, image_name, image)
+                #append data to image_data array if it's not already there
+                if not image_data.any? { |data| data['filename'] == image_name }
+                    image_data << 
+                        {
+                        'datetime' => image_date.to_s,
+                        'filename' => image_name,
+                        'aspectRatio' => image.width.to_f / image.height
+                        }
+                end
+            end
+        end
+        
         def generate(site)
             @site = site
             get_paths()
@@ -181,28 +219,22 @@ module GalleryGenerator
                 if not File.exists? File.join(@js_path, 'pig.min.js')
                     File.open(File.join(@js_path, 'pig.min.js'), 'w') { |file| file.write(@@pig_min_js) }
                 end
+                #get image data from _data
                 image_data = get_image_data(gallery.name)
+                #get images from gallery
                 images = get_images(gallery.path)
+                augment_image_data(gallery, image_data, images)
+                #sort image data
+                image_data = image_data.sort_by { |data| data['datetime'] }
+                #process images
                 images.each do |image_name, image|
                     #create thumbs, full size, and html assets for each image
-                    process_image(gallery.path, image_name, image)
-                    #get image date
-                    image_date = get_image_date(gallery.path, image_name, image)
-                    #append data to image_data array if it's not already there
-                    if not image_data.any? { |data| data['filename'] == image_name }
-                        image_data << 
-                            {
-                                'datetime' => image_date.to_s,
-                                'filename' => image_name,
-                                'aspectRatio' => image.width.to_f / image.height
-                            }
-                    end
+                    process_image(image_data, gallery.path, image_name, image)
                 end
                 File.open(File.join(@data_path, "#{gallery.name}.json"), 'w') { |file|
                     file.write(image_data.to_json)
                 }
                 File.open(File.join(@includes_path, "#{gallery.name}.html"), 'w') { |file|
-                    image_data = image_data.sort_by { |data| data['datetime'] }
                     file.write(gallery_html(gallery.name, image_data))
                 }
             end
