@@ -3,20 +3,4 @@ layout: page
 title: Gallery
 permalink: /gallery
 ---
-<div id="pig"></div>
-<script src="{{site.baseurl}}/assets/js/pig.min.js"></script>
-<script>
-var pig = new Pig(
-    {% include gallery_data.html %},
-    {
-        containerId: 'pig',
-        classPrefix: 'pig',
-        urlForSize: function(filename, size) {
-            return '{{site.baseurl}}/assets/img/' + size + '/' + filename;
-        },
-        onClickHandler: function(filename) {
-            window.location.href = '{{site.baseurl}}/assets/html/' + filename;
-        }
-    }
-).enable();
-</script>
+{% include gallery.html %}

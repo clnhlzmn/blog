@@ -77,5 +77,6 @@ defaults:
       layout: "post"
 
 galleries:
-    - gallery
-    - gallery2
+  - 
+    path: gallery
+    name: gallery
