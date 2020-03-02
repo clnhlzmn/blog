@@ -3,14 +3,13 @@
 #add gem "mini_magick" to your site's Gemfile
 #run gem install mini_magick
 #add <site source>/gallery folder with images
-#add gallery/ to exclude list in your site's _config.yml
+#use {% include gallery.html %} anywhere you want the gallery to appear
 #add gallery.rb to your site's _plugins folder
 #run jekyll build
 
 require 'fileutils'
 require 'json'
 require 'mini_magick'
-require 'pathname'
 
 module GalleryGenerator
     
@@ -20,7 +19,7 @@ module GalleryGenerator
             @name = name
         end
         def to_s
-            "#gallery {@name} at #{@path}"
+            "gallery #{@name} at #{@path}"
         end
         def path
             @path
@@ -31,6 +30,8 @@ module GalleryGenerator
     end
 
     class GalleryGenerator < Jekyll::Generator
+    
+        @@pig_min_js = '!function(t){"use strict";var i,e,s=(e=!(i=[]),{add:function(t){i.length||window.addEventListener("resize",n),i.push(t)},disable:function(){window.removeEventListener("resize",n)},reEnable:function(){window.addEventListener("resize",n)}});function n(){e||(e=!0,window.requestAnimationFrame?window.requestAnimationFrame(o):setTimeout(o,66))}function o(){i.forEach(function(t){t()}),e=!1}function a(t,i){return this.inRAF=!1,this.isTransitioning=!1,this.minAspectRatioRequiresTransition=!1,this.minAspectRatio=null,this.latestYOffset=0,this.lastWindowWidth=window.innerWidth,this.scrollDirection="down",this.visibleImages=[],this.settings={containerId:"pig",scroller:window,classPrefix:"pig",figureTagName:"figure",spaceBetweenImages:8,transitionSpeed:500,primaryImageBufferHeight:1e3,secondaryImageBufferHeight:300,thumbnailSize:20,urlForSize:function(t,i){return"/img/"+i+"/"+t},onClickHandler:function(t){},getMinAspectRatio:function(t){return t<=640?2:t<=1280?4:t<=1920?5:6},getImageSize:function(t){return t<=640?100:t<=1920?250:500}},function(t,i){for(var e in i)i.hasOwnProperty(e)&&(t[e]=i[e])}(this.settings,i||{}),this.container=document.getElementById(this.settings.containerId),this.container||console.error("Could not find element with ID "+this.settings.containerId),this.scroller=this.settings.scroller,this.images=this._parseImageData(t),function(t,i,e){var s="#"+t+" {  position: relative;}."+i+"-figure {  background-color: #D5D5D5;  overflow: hidden;  left: 0;  position: absolute;  top: 0;  margin: 0;}."+i+"-figure img {  left: 0;  position: absolute;  top: 0;  height: 100%;  width: 100%;  opacity: 0;  transition: "+e/1e3+"s ease opacity;  -webkit-transition: "+e/1e3+"s ease opacity;}."+i+"-figure img."+i+"-thumbnail {  -webkit-filter: blur(30px);  filter: blur(30px);  left: auto;  position: relative;  width: auto;}."+i+"-figure img."+i+"-loaded {  opacity: 1;}",n=document.head||document.getElementsByTagName("head")[0],o=document.createElement("style");o.type="text/css",o.styleSheet?o.styleSheet.cssText=s:o.appendChild(document.createTextNode(s)),n.appendChild(o)}(this.settings.containerId,this.settings.classPrefix,this.settings.transitionSpeed),this}function r(t,i,e){return this.existsOnPage=!1,this.aspectRatio=t.aspectRatio,this.filename=t.filename,this.index=i,this.pig=e,this.classNames={figure:e.settings.classPrefix+"-figure",thumbnail:e.settings.classPrefix+"-thumbnail",loaded:e.settings.classPrefix+"-loaded"},this}a.prototype._getTransitionTimeout=function(){return 1.5*this.settings.transitionSpeed},a.prototype._getTransitionString=function(){return this.isTransitioning?this.settings.transitionSpeed/1e3+"s transform ease":"none"},a.prototype._recomputeMinAspectRatio=function(){var t=this.minAspectRatio;this.minAspectRatio=this.settings.getMinAspectRatio(this.lastWindowWidth),null!==t&&t!==this.minAspectRatio?this.minAspectRatioRequiresTransition=!0:this.minAspectRatioRequiresTransition=!1},a.prototype._parseImageData=function(t){var s=[];return t.forEach(function(t,i){var e=new r(t,i,this);s.push(e)}.bind(this)),s},a.prototype._computeLayout=function(){var s=parseInt(this.container.clientWidth),n=[],o=0,a=0,r=0;this._recomputeMinAspectRatio(),!this.isTransitioning&&this.minAspectRatioRequiresTransition&&(this.isTransitioning=!0,setTimeout(function(){this.isTransitioning=!1},this._getTransitionTimeout()));var h=this._getTransitionString();[].forEach.call(this.images,function(t,i){if(r+=parseFloat(t.aspectRatio),n.push(t),r>=this.minAspectRatio||i+1===this.images.length){r=Math.max(r,this.minAspectRatio);var e=(s-this.settings.spaceBetweenImages*(n.length-1))/r;n.forEach(function(t){var i=e*t.aspectRatio;t.style={width:parseInt(i),height:parseInt(e),translateX:o,translateY:a,transition:h},o+=i+this.settings.spaceBetweenImages}.bind(this)),n=[],r=0,a+=parseInt(e)+this.settings.spaceBetweenImages,o=0}}.bind(this)),this.totalHeight=a-this.settings.spaceBetweenImages},a.prototype._doLayout=function(){this.container.style.height=this.totalHeight+"px";var t="up"===this.scrollDirection?this.settings.primaryImageBufferHeight:this.settings.secondaryImageBufferHeight,i="down"===this.scrollDirection?this.settings.secondaryImageBufferHeight:this.settings.primaryImageBufferHeight,e=function(t){for(var i=0;isNaN(t.offsetTop)||(i+=t.offsetTop),t=t.offsetParent;);return i}(this.container),s=this.scroller===window?window.innerHeight:this.scroller.offsetHeight,n=this.latestYOffset-e-t,o=this.latestYOffset-e+s+i;this.images.forEach(function(t){t.style.translateY+t.style.height<n||t.style.translateY>o?t.hide():t.load()}.bind(this))},a.prototype._getOnScroll=function(){var i=this;return function(){var t=i.scroller===window?window.pageYOffset:i.scroller.scrollTop;i.previousYOffset=i.latestYOffset||t,i.latestYOffset=t,i.scrollDirection=i.latestYOffset>i.previousYOffset?"down":"up",i.inRAF||(i.inRAF=!0,window.requestAnimationFrame(function(){i._doLayout(),i.inRAF=!1}))}},a.prototype.enable=function(){return this.onScroll=this._getOnScroll(),this.scroller.addEventListener("scroll",this.onScroll),this.onScroll(),this._computeLayout(),this._doLayout(),s.add(function(){this.lastWindowWidth=this.scroller===window?window.innerWidth:this.scroller.offsetWidth,this._computeLayout(),this._doLayout()}.bind(this)),this},a.prototype.disable=function(){return this.scroller.removeEventListener("scroll",this.onScroll),s.disable(),this},r.prototype.load=function(){this.existsOnPage=!0,this._updateStyles(),this.pig.container.appendChild(this.getElement()),setTimeout(function(){this.existsOnPage&&(this.thumbnail||(this.thumbnail=new Image,this.thumbnail.src=this.pig.settings.urlForSize(this.filename,this.pig.settings.thumbnailSize),this.thumbnail.className=this.classNames.thumbnail,this.thumbnail.onload=function(){this.thumbnail&&(this.thumbnail.className+=" "+this.classNames.loaded)}.bind(this),this.getElement().appendChild(this.thumbnail)),this.fullImage||(this.fullImage=new Image,this.fullImage.src=this.pig.settings.urlForSize(this.filename,this.pig.settings.getImageSize(this.pig.lastWindowWidth)),this.fullImage.onload=function(){this.fullImage&&(this.fullImage.className+=" "+this.classNames.loaded)}.bind(this),this.getElement().appendChild(this.fullImage)))}.bind(this),100)},r.prototype.hide=function(){this.getElement()&&(this.thumbnail&&(this.thumbnail.src="",this.getElement().removeChild(this.thumbnail),delete this.thumbnail),this.fullImage&&(this.fullImage.src="",this.getElement().removeChild(this.fullImage),delete this.fullImage)),this.existsOnPage&&this.pig.container.removeChild(this.getElement()),this.existsOnPage=!1},r.prototype.getElement=function(){return this.element||(this.element=document.createElement(this.pig.settings.figureTagName),this.element.className=this.classNames.figure,this.element.addEventListener("click",function(){this.pig.settings.onClickHandler(this.filename)}.bind(this)),this._updateStyles()),this.element},r.prototype._updateStyles=function(){this.getElement().style.transition=this.style.transition,this.getElement().style.width=this.style.width+"px",this.getElement().style.height=this.style.height+"px",this.getElement().style.transform="translate3d("+this.style.translateX+"px,"+this.style.translateY+"px, 0)"},"function"==typeof define&&define.amd?define([],function(){return a}):"undefined"!=typeof module&&module.exports?module.exports=a:t.Pig=a}("undefined"!=typeof window?window:this);'
     
         def full_size_html(name, date)
             "---\n"                                             \
@@ -63,11 +64,11 @@ module GalleryGenerator
         end
         
         #read the image data from the _includes folder
-        def get_image_data()
+        def get_image_data(gallery_name)
             image_data = []
             #read image_data if existing
-            if File.exists?(File.join(@includes_path, "gallery_data.html"))
-                File.open(File.join(@includes_path, "gallery_data.html"), 'r') { |file|
+            if File.exists?(File.join(@data_path, "#{gallery_name}.json"))
+                File.open(File.join(@data_path, "#{gallery_name}.json"), 'r') { |file|
                     #get array of image data (drop 'var imageData = ' and ';')
                     image_data = JSON.parse(file.read)
                 }
@@ -114,10 +115,10 @@ module GalleryGenerator
             #puts "jekyll-pig: processing " << image_name
             #create thumbs
             [1024, 500, 250, 100, 20].each { |size|
-                resized_img_path = File.join(@img_path, size.to_s, image_name)
+                size_out_path = File.join(@img_path, size.to_s)
+                resized_img_path = File.join(size_out_path, image_name)
                 if not File.exists? resized_img_path
                     image.resize("x" + size.to_s)
-                    size_out_path = File.join(@img_path, size.to_s)
                     FileUtils.mkdir_p size_out_path unless File.exists? size_out_path
                     image.write(resized_img_path)
                 end
@@ -136,6 +137,8 @@ module GalleryGenerator
         
         def get_paths
             @assets_path = File.join(@site.source, "assets")
+            @js_path = File.join(@assets_path, "js")
+            @data_path = File.join(@site.source, "_data")
             @img_path = File.join(@assets_path, "img")
             @html_path = File.join(@assets_path, "html")
             @includes_path = File.join(@site.source, "_includes")
@@ -162,6 +165,7 @@ module GalleryGenerator
         
         def make_output_paths
             FileUtils.mkdir_p @assets_path unless File.exists? @assets_path
+            FileUtils.mkdir_p @js_path unless File.exists? @js_path
             FileUtils.mkdir_p @img_path unless File.exists? @img_path
             FileUtils.mkdir_p @html_path unless File.exists? @html_path
             FileUtils.mkdir_p @includes_path unless File.exists? @includes_path
@@ -173,49 +177,34 @@ module GalleryGenerator
             make_output_paths()
             galleries = get_galleries()
             galleries.each do |gallery|
-                image_data = []
+                if not File.exists? File.join(@js_path, 'pig.min.js')
+                    File.open(File.join(@js_path, 'pig.min.js'), 'w') { |file| file.write(@@pig_min_js) }
+                end
+                image_data = get_image_data(gallery.name)
                 images = get_images(gallery.path)
                 images.each do |image_name, image|
                     #create thumbs, full size, and html assets for each image
                     process_image(gallery.path, image_name, image)
                     #get image date
                     image_date = get_image_date(gallery.path, image_name, image)
-                    #append data to image_data array
-                    image_data << 
-                        {
-                            'datetime' => image_date.to_s,
-                            'filename' => image_name,
-                            'aspectRatio' => image.width.to_f / image.height
-                        }
+                    #append data to image_data array if it's not already there
+                    if not image_data.any? { |data| data['filename'] == image_name }
+                        image_data << 
+                            {
+                                'datetime' => image_date.to_s,
+                                'filename' => image_name,
+                                'aspectRatio' => image.width.to_f / image.height
+                            }
+                    end
                 end
+                File.open(File.join(@data_path, "#{gallery.name}.json"), 'w') { |file|
+                    file.write(image_data.to_json)
+                }
                 File.open(File.join(@includes_path, "#{gallery.name}.html"), 'w') { |file|
                     image_data = image_data.sort_by { |data| data['datetime'] }
                     file.write(gallery_html(gallery.name, image_data))
                 }
             end
-            #check for gallery directory
-            #if File.directory?(@gallery_path)
-                #array for holding image data for later
-                #image_data = get_image_data()
-                #hash for holding images from mini_magick, file name is key
-                #images = get_images(image_data)
-                #make output path(s)
-                #FileUtils.mkdir_p @assets_path unless File.exists? @assets_path
-                #FileUtils.mkdir_p @img_path unless File.exists? @img_path
-                #FileUtils.mkdir_p @html_path unless File.exists? @html_path
-                #FileUtils.mkdir_p @includes_path unless File.exists? @includes_path
-                #for each image
-                #images.each { |image_name, image|
-                    #process_image(image_data, image_name, image)
-                #}
-                #create gallery_data include file
-                #File.open(File.join(@includes_path, "gallery_data.html"), 'w') { |file|
-                    #image_data = image_data.sort_by { |data| data['datetime'] }
-                    #file.write(image_data.to_json())
-                #}
-            #else 
-                #puts "jekyll-pig: no gallery at " << @gallery_path
-            #end
         end
     end
 end
