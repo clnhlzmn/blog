@@ -40,8 +40,8 @@ module GalleryGenerator
             "date: #{date.strftime("%Y-%m-%d %H:%M:%S")}\n"     \
             "exclude: true\n"                                   \
             "---\n"                                             \
+            "<div><a href=\"#{prev_url}\" style=\"display:inline;\">prev</a><a href=\"#{next_url}\" style=\"display:inline; float:right\">next</a></div>\n" \
             "<img src=\"{{site.baseurl}}/assets/img/1024/#{name}\"/>\n"    \
-            "<div><a href=\"#{prev_url}\" style=\"display:inline;\">prev</a><a href=\"#{next_url}\" style=\"display:inline; float:right\">next</a></div>\n"
         end
         
         def gallery_html(id, image_data)
