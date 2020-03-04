@@ -6,4 +6,5 @@ Gemfile.lock
 .DS_Store
 .jekyll-cache
 .git
-gallery
+/gallery
+/docs/gallery
