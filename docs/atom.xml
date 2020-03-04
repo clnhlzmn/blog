@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Colin Holzman</title>
- <link href="https://colinholzman.xyz/atom.xml" rel="self"/>
- <link href="https://colinholzman.xyz/"/>
- <updated>2020-03-04T07:56:39-05:00</updated>
- <id>https://colinholzman.xyz</id>
+ <link href="http://localhost:4000/atom.xml" rel="self"/>
+ <link href="http://localhost:4000/"/>
+ <updated>2020-03-04T13:41:23-05:00</updated>
+ <id>http://localhost:4000</id>
  <author>
    <name>Colin Holzman</name>
    <email>me@colinholzman.xyz</email>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Honeymoon</title>
-   <link href="https://colinholzman.xyz/2019/07/31/honeymoon"/>
+   <link href="http://localhost:4000/2019/07/31/honeymoon"/>
    <updated>2019-07-31T00:00:00-04:00</updated>
-   <id>https://colinholzman.xyz/2019/07/31/honeymoon</id>
+   <id>http://localhost:4000/2019/07/31/honeymoon</id>
    <content type="html">&lt;p&gt;Kaitlin and I decided to go to Marseille for our honeymoon. We probably could have started planning earlier, and planned more, but in the end it was an amazing time.&lt;/p&gt;
 
 &lt;h1 id=&quot;day-1&quot;&gt;Day 1&lt;/h1&gt;
@@ -142,9 +142,9 @@
  
  <entry>
    <title>Wedding</title>
-   <link href="https://colinholzman.xyz/2019/07/20/wedding"/>
+   <link href="http://localhost:4000/2019/07/20/wedding"/>
    <updated>2019-07-20T00:00:00-04:00</updated>
-   <id>https://colinholzman.xyz/2019/07/20/wedding</id>
+   <id>http://localhost:4000/2019/07/20/wedding</id>
    <content type="html">&lt;p&gt;I proposed to Kaitlin around the middle of August 2018. I was nervous. Thankfully she said yes. I wasn’t surprised; we had discussed marriage. I had asked her dad for permission the previous day so I think she saw it coming. We decided to have the wedding in the Summer of 2019 and started looking for locations immediately.&lt;/p&gt;
 
 &lt;figure class=&quot;image&quot;&gt;
@@ -267,9 +267,9 @@
  
  <entry>
    <title>Jekyll and pig.js</title>
-   <link href="https://colinholzman.xyz/2019/04/22/jekyll-and-pig"/>
+   <link href="http://localhost:4000/2019/04/22/jekyll-and-pig"/>
    <updated>2019-04-22T09:00:00-04:00</updated>
-   <id>https://colinholzman.xyz/2019/04/22/Jekyll-and-PIG</id>
+   <id>http://localhost:4000/2019/04/22/Jekyll-and-PIG</id>
    <content type="html">&lt;h2 id=&quot;photo-gallery&quot;&gt;Photo Gallery&lt;/h2&gt;
 
 &lt;p&gt;I tried using &lt;a href=&quot;https://github.com/ElasticDesigns/jekyll-lens&quot;&gt;Jekyll Lens&lt;/a&gt; for a photo gallery on &lt;a href=&quot;https://colinholzman.xyz&quot;&gt;colinholzman.xyz&lt;/a&gt;. It worked and was easy to use but was not exactly what I wanted. While looking for a better method I came across &lt;a href=&quot;https://chuckleplant.github.io/2018/08/06/pig-img-gallery.html&quot;&gt;this&lt;/a&gt; post by Sergio Basurco. In it he describes how he modified the &lt;a href=&quot;https://github.com/aerobless/jekyll-photo-gallery&quot;&gt;Jekyll Photo Gallery&lt;/a&gt; plugin to use &lt;a href=&quot;https://github.com/schlosser/pig.js&quot;&gt;pig.js&lt;/a&gt; for loading images. Pig.js is a simple and lightweight JavaScript library to enable progressive loading of images as the user scrolls to them. The &lt;a href=&quot;https://feeding.schlosser.io/&quot;&gt;example&lt;/a&gt; is exactly the effect that I was looking for.&lt;/p&gt;
@@ -313,9 +313,9 @@
  
  <entry>
    <title>CopperKitten</title>
-   <link href="https://colinholzman.xyz/2019/04/17/copper-kitten"/>
+   <link href="http://localhost:4000/2019/04/17/copper-kitten"/>
    <updated>2019-04-17T17:00:00-04:00</updated>
-   <id>https://colinholzman.xyz/2019/04/17/copper-kitten</id>
+   <id>http://localhost:4000/2019/04/17/copper-kitten</id>
    <content type="html">&lt;p&gt;CopperKitten is an exercise in programming language and runtime design and implementation. Check out the code &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten&quot;&gt;here&lt;/a&gt; and read on for more explanation.&lt;/p&gt;
 
 &lt;p&gt;This project is far from complete. It will probably never be fully complete. I have a few features that I would like to implement before I put it aside. I am writing this post to introduce what I have done so far and invite comments and discussion.&lt;/p&gt;
@@ -508,9 +508,9 @@
  
  <entry>
    <title>website updates</title>
-   <link href="https://colinholzman.xyz/2018/12/07/website-updates"/>
+   <link href="http://localhost:4000/2018/12/07/website-updates"/>
    <updated>2018-12-07T16:24:00-05:00</updated>
-   <id>https://colinholzman.xyz/2018/12/07/website-updates</id>
+   <id>http://localhost:4000/2018/12/07/website-updates</id>
    <content type="html">&lt;h3 id=&quot;photos&quot;&gt;Photos&lt;/h3&gt;
 
 &lt;p&gt;There are some really neat themes for Jekyll for all sorts of things. I found one for a photo gallery and set it up at &lt;a href=&quot;https://colinholzman.xyz/photos&quot;&gt;colinholzman.xyz/photos&lt;/a&gt;. Not a lot of photos up there at the moment, but that’ll change.&lt;/p&gt;
@@ -544,9 +544,9 @@ app.get('/resume.pdf', (req, res) =&amp;gt; {
  
  <entry>
    <title>colinholzman.xyz</title>
-   <link href="https://colinholzman.xyz/2018/11/27/colinholzman-xyz"/>
+   <link href="http://localhost:4000/2018/11/27/colinholzman-xyz"/>
    <updated>2018-11-27T07:00:00-05:00</updated>
-   <id>https://colinholzman.xyz/2018/11/27/colinholzman-xyz</id>
+   <id>http://localhost:4000/2018/11/27/colinholzman-xyz</id>
    <content type="html">&lt;p&gt;I’ve wanted to learn what it takes to run a website. Finally I’ve put together &lt;a href=&quot;https://colinholzman.xyz&quot;&gt;colinholzman.xyz&lt;/a&gt;. This is based on knowledge found all over the internet and through trial and error. It’s fitting to write down some instructions on how to reproduce it as the first post.&lt;/p&gt;
 
 &lt;h3 id=&quot;get-a-host-to-serve-your-site&quot;&gt;get a host to serve your site&lt;/h3&gt;

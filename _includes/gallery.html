@@ -7,10 +7,10 @@ var gallery_pig = new Pig(
         containerId: 'gallery_pig',
         classPrefix: 'gallery_pig',
         urlForSize: function(filename, size) {
-            return '{{site.baseurl}}/assets/img/' + size + '/' + filename;
+            return '{{site.baseurl}}/assets/img/gallery/' + size + '/' + filename;
         },
         onClickHandler: function(filename) {
-            window.location.href = '{{site.baseurl}}/assets/html/' + filename;
+            window.location.href = '{{site.baseurl}}/assets/html/gallery/' + filename + '.html';
         }
     }
 ).enable();
