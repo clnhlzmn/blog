@@ -48,6 +48,7 @@ plugins:
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap  
+  - jekyll_pig
 
 collections:
   pages:
