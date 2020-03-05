@@ -19,22 +19,13 @@ markdown: kramdown
 # change destination for gh pages
 destination: docs
 
-exclude:
-   - Gemfile
-   - Gemfile.lock
-   - node_modules
-   - vendor/bundle/
-   - vendor/cache/
-   - vendor/gems/
-   - vendor/ruby/
-   - gallery/
-
 baseurl: ""
 
 highlighter: none
 
 exclude:
   - .jekyll-cache
+  - gallery/
   
 compress_html:
   clippings: all
@@ -48,7 +39,7 @@ plugins:
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap  
-  - jekyll_pig
+  - jekyll-pig
 
 collections:
   pages:
