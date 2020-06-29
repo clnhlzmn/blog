@@ -5,3 +5,4 @@ gem 'jekyll-seo-tag'
 gem 'jekyll-sitemap'
 
 gem 'jekyll-pig'
+gem 'jekyll_picture_tag'

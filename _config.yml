@@ -40,6 +40,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap  
   - jekyll-pig
+  - jekyll_picture_tag
 
 collections:
   pages:
@@ -72,3 +73,7 @@ galleries:
   - 
     path: gallery
     name: gallery
+    
+picture:
+    source: "assets/img/fullsize"
+    output: "assets/img/generated"

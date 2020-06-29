@@ -6,6 +6,8 @@ categories: self
 tags: [self, baking, cooking, recipe]
 ---
 
+{% picture IMG_20200628_112144.jpg %}
+
 I made bread this past weekend using mostly whole wheat flour and, unlike my prior attempts with whole wheat, I was able to produce something I was proud of. The other attempts were edible, but very heavy. This latest boule is light and fluffy and also has a better crust than even when I bake with while flour. I used the recipe from my last post with just a little more water.
 
 ### Whole Wheat Sourdough recipe
