@@ -4,13 +4,157 @@
  <title>Colin Holzman</title>
  <link href="https://colinholzman.xyz/atom.xml" rel="self"/>
  <link href="https://colinholzman.xyz/"/>
- <updated>2020-06-29T15:12:29-04:00</updated>
+ <updated>2020-08-22T18:52:13-04:00</updated>
  <id>https://colinholzman.xyz</id>
  <author>
    <name>Colin Holzman</name>
    <email>me@colinholzman.xyz</email>
  </author>
 
+ 
+ <entry>
+   <title>Unit Testing Embedded C</title>
+   <link href="https://colinholzman.xyz/2020/08/22/unit-testing-embedded-c"/>
+   <updated>2020-08-22T00:00:00-04:00</updated>
+   <id>https://colinholzman.xyz/2020/08/22/unit-testing-embedded-c</id>
+   <content type="html">&lt;p&gt;I have been trying to be more thorough in my testing efforts lately. What has always seemed like a big challenge is how to automate testing for source code that is targeting a microcontroller like AVR? I will talk about two sides of this challenge: decoupling and running unit tests.&lt;/p&gt;
+
+&lt;h2 id=&quot;decoupling&quot;&gt;Decoupling&lt;/h2&gt;
+
+&lt;p&gt;I write a lot of code for AVR microcontrollers so the code here will be in that context, but these ideas work equally well for any target. Decoupling means to separate your software into small pieces that are coupled only with a small number of dependencies. A dependency could be a target header file like &lt;code&gt;avr/io.h&lt;/code&gt; or it could be another software module that you have written. In either case, keeping the number of dependencies small will improve your chances of successful unit testing.&lt;/p&gt;
+
+&lt;p&gt;Assume you have a module called &lt;code&gt;relay_control&lt;/code&gt; which is intended to turn a relay on if an input value exceeds a threshold and off otherwise. Your &lt;code&gt;relay_control.c&lt;/code&gt; file might look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;avr/io.h&amp;gt;
+
+#define THRESHOLD (100)
+
+void relay_control(int value) {
+    if (value &amp;gt; THRESHOLD) {
+        PORTA |= 1;
+    } else {
+        PORTA &amp;amp;= ~1;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;relay_control&lt;/code&gt; function takes &lt;code&gt;value&lt;/code&gt;, compares it to &lt;code&gt;THRESHOLD&lt;/code&gt;, and sets bit zero of &lt;code&gt;PORTA&lt;/code&gt; high or low accordingly (assuming &lt;code&gt;PA0&lt;/code&gt; is somehow controlling the relay). Of course this is a trivially simple function but imagine some other complicated logic in it’s place. One way to test this function is to compile this using GCC on your development machine while somehow including a mock &lt;code&gt;avr/io.h&lt;/code&gt; that defines &lt;code&gt;PORTA&lt;/code&gt; in such a way that the test code can determine if the relay is on or off for a range of the &lt;code&gt;value&lt;/code&gt; argument passed to &lt;code&gt;relay_control&lt;/code&gt;. That requires you to mock the header file which is not always possible. A better way is to use features of the C language to decouple the direct io port access from &lt;code&gt;relay_control&lt;/code&gt; so that the &lt;code&gt;relay_control&lt;/code&gt; module doesn’t depend on &lt;code&gt;avr/io.h&lt;/code&gt;. That way you can test it on your development machine or wherever you want. The new &lt;code&gt;relay_control.c&lt;/code&gt; could look something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#define THRESHOLD (100)
+
+void (*relay_writer)(char relay_on);
+
+void relay_control(int value) {
+    if (relay_writer) 
+        relay_writer(value &amp;gt; THRESHOLD);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The new &lt;code&gt;relay_control.c&lt;/code&gt; doesn’t depend on &lt;code&gt;avr/io.h&lt;/code&gt;. Instead it depends on a function pointer, &lt;code&gt;relay_writer&lt;/code&gt;, that acts as an interface to the hardware. Now the application can implement &lt;code&gt;relay_writer&lt;/code&gt; to access the hardware, and your test code can implement it to set a bit in memory to allow you to check the output of the &lt;code&gt;relay_control&lt;/code&gt; module. Your application could implement &lt;code&gt;relay_writer&lt;/code&gt; like this (perhaps in &lt;code&gt;relay_control_hal.c&lt;/code&gt; [relay control hardware abstraction layer]):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;avr/io.h&amp;gt;
+
+extern void (*relay_writer)(char relay_on);
+
+void relay_writer_impl(char relay_on) {
+    if (relay_on) {
+        PORTA |= 1;
+    } else {
+        PORTA &amp;amp;= ~1;
+    }
+}
+
+void relay_control_init(void) {
+    relay_writer = relay_writer_impl;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The hardware abstraction layer code is purposfully kept as trivial as possible, it’s only accessing the io port, because the only way to test it is to run it on the target platform (because it depends on &lt;code&gt;avr/io.h&lt;/code&gt;). Since it’s so simple you’re not as concerned with testing &lt;code&gt;relay_control_hal.c&lt;/code&gt; (trivial hardware access only) as you are with &lt;code&gt;relay_control.c&lt;/code&gt; (non-trivial application logic).&lt;/p&gt;
+
+&lt;p&gt;Now you can write a test, &lt;code&gt;test_relay_control.c&lt;/code&gt;, that might look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;assert.h&amp;gt;
+#include &quot;relay_control.h&quot;
+
+char relay_state = 0;
+
+void relay_writer_test_impl(char relay_on) {
+    relay_state = relay_on;
+}
+
+extern void (*relay_writer)(char relay_on);
+
+int main(void) {
+    relay_writer = relay_writer_test_impl;
+    relay_control(0);
+    assert(relay_state == 0);
+    relay_control(1000);
+    assert(relay_state == 1);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Decoupling &lt;code&gt;relay_control.c&lt;/code&gt; from the hardware (&lt;code&gt;avr/io.h&lt;/code&gt;) has the added benefit that your tests are not constrained by the target environment’s memory or processor limitations. The tests can use the full power of the C language.&lt;/p&gt;
+
+&lt;p&gt;Now whenever you make a change to &lt;code&gt;relay_control.c&lt;/code&gt; you can quickly run the test to make sure that the functionality remains. But how do you run the test?&lt;/p&gt;
+
+&lt;h2 id=&quot;running-unit-tests&quot;&gt;Running unit tests&lt;/h2&gt;
+
+&lt;p&gt;One way is to use a simple makefile that compiles &lt;code&gt;test_relay_control.c&lt;/code&gt; and &lt;code&gt;relay_control.c&lt;/code&gt; and then runs the resulting executable. Or you could use a more advanced build system generator like CMake. I recommend using CMake because it gets very tricky very quickly to link up a bunch of &lt;code&gt;.c&lt;/code&gt; and &lt;code&gt;.h&lt;/code&gt; files in different directories to create an executable with only a makefile. I have only recently learned how to use CMake so please bear with me on this. The solution that I have come up with for running unit tests on windows goes like this:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;create a directory somewhere in your project called &lt;code&gt;test&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;in the &lt;code&gt;test&lt;/code&gt; directory create a file called &lt;code&gt;cmakelists.txt&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code&gt;cmakelists.txt&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; cmake_minimum_required (VERSION 3.18)
+ project(Test)
+ enable_testing()
+ add_executable(Test 
+     test_relay_control.c 
+     &amp;lt;path to relay_control.c&amp;gt;
+ )
+ include_directories(&amp;lt;path to relay_control.h&amp;gt;)
+ add_test(NAME Test COMMAND Test)
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;p&gt;In this case there is only one test called &lt;code&gt;Test&lt;/code&gt; which is generated by the &lt;code&gt;add_executable&lt;/code&gt; and &lt;code&gt;add_test&lt;/code&gt; commands.&lt;/p&gt;
+
+    &lt;p&gt;To add another test you would first create your test file &lt;code&gt;another_test.c&lt;/code&gt; and add the following lines to &lt;code&gt;cmakelists.txt&lt;/code&gt;&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt; add_executable(AnotherTest 
+     another_test.c 
+     &amp;lt;path to another_file_under_test.c&amp;gt;
+ )
+ include_directories(&amp;lt;path to headers needed by another_test.c&amp;gt;)
+ add_test(NAME AnotherTest COMMAND AnotherTest)
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;in the &lt;code&gt;test&lt;/code&gt; directory create a file called &lt;code&gt;test.sh&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code&gt;test.sh&lt;/code&gt;:&lt;/p&gt;
+    &lt;pre&gt;&lt;code&gt; if ! [[ -d &quot;build&quot; ]]; then
+     mkdir build
+ fi
+ cd build
+ cmake .. -G&quot;MinGW Makefiles&quot;
+ cmake --build . &amp;amp;&amp;amp; ctest -C Debug
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;p&gt;In this case I am using the &lt;code&gt;MinGW Makefiles&lt;/code&gt; generator for CMake because I run my tests on Windows but I would like to use GCC rather than the default MSVC.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;With those steps having been done you can now run &lt;code&gt;test.sh&lt;/code&gt; and whatever tests you have defined will be run and the output will show you clearly which have passed and which have failed.&lt;/p&gt;
+
+&lt;p&gt;Happy testing!&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Whole Wheat Sourdough</title>
