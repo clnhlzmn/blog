@@ -25,6 +25,7 @@ highlighter: none
 
 exclude:
   - .jekyll-cache
+  - Gemfile
   - gallery/
   
 compress_html:
