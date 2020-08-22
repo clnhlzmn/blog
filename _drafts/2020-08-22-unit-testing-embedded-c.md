@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Unit Testing Embedded C"
-date:  2020-07-19
+date:  2020-08-22
 categories: programming
 tags: [programming, C, coding, software, engineering]
 ---
@@ -28,7 +28,7 @@ void relay_control(int value) {
 }
 ```
 
-The `relay_control` function takes `int value`, compares it to `THRESHOLD`, and sets bit zero of `PORTA` high or low accordingly (assuming `PA0` is somehow controlling the relay). Of course this is a trivially simple function but imagine some other complicated logic in it's place. One way to test this function is to compile this using gcc on your development machine and somehow include a mock `avr/io.h` that defines `PORTA` in such a way that the test code can determine if the relay is on or off according to the `value` argument passed to `relay_control`. A simpler way (in my opinion) and the way that I have been writing code lately is to decouple the direct io port access from `relay_control` so that the `relay_control` module doesn't depend on `avr/io.h`. That way you can test it on your development machine or wherever you want. The new `relay_control.c` could look something like this:
+The `relay_control` function takes `value`, compares it to `THRESHOLD`, and sets bit zero of `PORTA` high or low accordingly (assuming `PA0` is somehow controlling the relay). Of course this is a trivially simple function but imagine some other complicated logic in it's place. One way to test this function is to compile this using GCC on your development machine while somehow including a mock `avr/io.h` that defines `PORTA` in such a way that the test code can determine if the relay is on or off for test values of the `value` argument passed to `relay_control`. That might work but it requires you to mock the header file which is not always possible. A better way is to use features of the C language to decouple the direct io port access from `relay_control` so that the `relay_control` module doesn't depend on `avr/io.h`. That way you can test it on your development machine or wherever you want. The new `relay_control.c` could look something like this:
 
 ```
 #define THRESHOLD (100)
@@ -36,11 +36,12 @@ The `relay_control` function takes `int value`, compares it to `THRESHOLD`, and 
 void (*relay_writer)(char relay_on);
 
 void relay_control(int value) {
-    relay_writer(value > THRESHOLD);
+    if (relay_writer) 
+        relay_writer(value > THRESHOLD);
 }
 ```
 
-The new `relay_control.c` doesn't depend on `avr/io.h`. Somewhere else in your application you would have some code that looks like this (perhaps in `relay_control_hal.c` [relay control hardware abstraction layer]):
+The new `relay_control.c` doesn't depend on `avr/io.h`. Instead I have defined a function pointer `relay_writer` that acts as an interface to the hardware. Now the application can implement `relay_writer` to access the hardware, and my test code can implement it to just set a bit in memory to allow me to check the output of the `relay_control` module. Your application could implement `relay_writer` like this (perhaps in `relay_control_hal.c` [relay control hardware abstraction layer]):
 
 ```
 #include <avr/io.h>
@@ -88,11 +89,11 @@ int main(void) {
 
 Decoupling `relay_control.c` from the hardware (`avr/io.h`) has the added benefit that your tests are not constrained by the target environment's memory or processor limitations. The tests can use the full power of the C language.
 
-Now whenever you make a change to `relay_control.c` you can quickly run the test to make sure that the functionality remains. But how do we run this test?
+Now whenever you make a change to `relay_control.c` you can quickly run the test to make sure that the functionality remains. But how do you run this test?
 
 ## Running unit tests
 
-One way is to use a simple makefile that compiles `test_relay_control.c` and `relay_control.c` and then runs the resulting executable. Or you could use a more advanced build system generator like CMake. I recommend using CMake. I have only recently learned how to use CMake so please bear with me on this. The solution that I have come up with for running unit tests on windows goes like this:
+One way is to use a simple makefile that compiles `test_relay_control.c` and `relay_control.c` and then runs the resulting executable. Or you could use a more advanced build system generator like CMake. I recommend using CMake because it gets very tricky very quickly to link up a bunch of `.c` and `.h` files in different directories to create an executable with only a makefile. I have only recently learned how to use CMake so please bear with me on this. The solution that I have come up with for running unit tests on windows goes like this:
 
 1. create a directory somewhere in your project called `test`
 
