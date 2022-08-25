@@ -4,7 +4,7 @@
  <title>Colin Holzman</title>
  <link href="https://colinholzman.xyz/atom.xml" rel="self"/>
  <link href="https://colinholzman.xyz/"/>
- <updated>2020-10-14T13:15:00-04:00</updated>
+ <updated>2022-08-25T11:43:52-07:00</updated>
  <id>https://colinholzman.xyz</id>
  <author>
    <name>Colin Holzman</name>
@@ -15,7 +15,7 @@
  <entry>
    <title>Unit Testing Embedded C</title>
    <link href="https://colinholzman.xyz/2020/08/22/unit-testing-embedded-c"/>
-   <updated>2020-08-22T00:00:00-04:00</updated>
+   <updated>2020-08-22T00:00:00-07:00</updated>
    <id>https://colinholzman.xyz/2020/08/22/unit-testing-embedded-c</id>
    <content type="html">&lt;p&gt;I have been trying to be more thorough in my testing efforts lately. What has always seemed like a big challenge is how to automate testing for source code that is targeting a microcontroller like AVR? I will talk about two sides of this challenge: decoupling and running unit tests.&lt;/p&gt;
 
@@ -159,7 +159,7 @@ int main(void) {
  <entry>
    <title>Whole Wheat Sourdough</title>
    <link href="https://colinholzman.xyz/2020/06/29/whole-wheat-sourdough"/>
-   <updated>2020-06-29T00:00:00-04:00</updated>
+   <updated>2020-06-29T00:00:00-07:00</updated>
    <id>https://colinholzman.xyz/2020/06/29/whole-wheat-sourdough</id>
    <content type="html">&lt;p&gt;I made bread this past weekend using mostly whole wheat flour and, unlike my prior attempts with whole wheat, I was able to produce something I was proud of. The other attempts were edible, but very heavy. This latest boule is light and fluffy and also has a better crust than even when I bake with while flour. I used the recipe from my last post with just a little more water.&lt;/p&gt;
 
@@ -200,7 +200,7 @@ int main(void) {
  <entry>
    <title>Sourdough</title>
    <link href="https://colinholzman.xyz/2020/05/30/sourdough"/>
-   <updated>2020-05-30T00:00:00-04:00</updated>
+   <updated>2020-05-30T00:00:00-07:00</updated>
    <id>https://colinholzman.xyz/2020/05/30/sourdough</id>
    <content type="html">&lt;p&gt;Making bread is a great hobby. It’s can be as simple as you want. It’s delicious. There is infinite room for experimenting and improving your recipes and technique. Until a few weeks ago I had never tried to make bread beyond things like bananna or zuchinni bread. Then someone at work started talking to me about sourdough starter and I decided to try it. Turns out it’s not that hard.&lt;/p&gt;
 
@@ -259,7 +259,7 @@ int main(void) {
  <entry>
    <title>Honeymoon</title>
    <link href="https://colinholzman.xyz/2019/07/31/honeymoon"/>
-   <updated>2019-07-31T00:00:00-04:00</updated>
+   <updated>2019-07-31T00:00:00-07:00</updated>
    <id>https://colinholzman.xyz/2019/07/31/honeymoon</id>
    <content type="html">&lt;p&gt;Kaitlin and I decided to go to Marseille for our honeymoon. We probably could have started planning earlier, and planned more, but in the end it was an amazing time.&lt;/p&gt;
 
@@ -387,7 +387,7 @@ int main(void) {
  <entry>
    <title>Wedding</title>
    <link href="https://colinholzman.xyz/2019/07/20/wedding"/>
-   <updated>2019-07-20T00:00:00-04:00</updated>
+   <updated>2019-07-20T00:00:00-07:00</updated>
    <id>https://colinholzman.xyz/2019/07/20/wedding</id>
    <content type="html">&lt;p&gt;I proposed to Kaitlin around the middle of August 2018. I was nervous. Thankfully she said yes. I wasn’t surprised; we had discussed marriage. I had asked her dad for permission the previous day so I think she saw it coming. We decided to have the wedding in the Summer of 2019 and started looking for locations immediately.&lt;/p&gt;
 
@@ -512,7 +512,7 @@ int main(void) {
  <entry>
    <title>Jekyll and pig.js</title>
    <link href="https://colinholzman.xyz/2019/04/22/jekyll-and-pig"/>
-   <updated>2019-04-22T09:00:00-04:00</updated>
+   <updated>2019-04-22T06:00:00-07:00</updated>
    <id>https://colinholzman.xyz/2019/04/22/Jekyll-and-PIG</id>
    <content type="html">&lt;h2 id=&quot;photo-gallery&quot;&gt;Photo Gallery&lt;/h2&gt;
 
@@ -558,7 +558,7 @@ int main(void) {
  <entry>
    <title>CopperKitten</title>
    <link href="https://colinholzman.xyz/2019/04/17/copper-kitten"/>
-   <updated>2019-04-17T17:00:00-04:00</updated>
+   <updated>2019-04-17T14:00:00-07:00</updated>
    <id>https://colinholzman.xyz/2019/04/17/copper-kitten</id>
    <content type="html">&lt;p&gt;CopperKitten is an exercise in programming language and runtime design and implementation. Check out the code &lt;a href=&quot;https://github.com/clnhlzmn/CopperKitten&quot;&gt;here&lt;/a&gt; and read on for more explanation.&lt;/p&gt;
 
@@ -753,7 +753,7 @@ int main(void) {
  <entry>
    <title>website updates</title>
    <link href="https://colinholzman.xyz/2018/12/07/website-updates"/>
-   <updated>2018-12-07T16:24:00-05:00</updated>
+   <updated>2018-12-07T13:24:00-08:00</updated>
    <id>https://colinholzman.xyz/2018/12/07/website-updates</id>
    <content type="html">&lt;h3 id=&quot;photos&quot;&gt;Photos&lt;/h3&gt;
 
@@ -789,7 +789,7 @@ app.get('/resume.pdf', (req, res) =&amp;gt; {
  <entry>
    <title>colinholzman.xyz</title>
    <link href="https://colinholzman.xyz/2018/11/27/colinholzman-xyz"/>
-   <updated>2018-11-27T07:00:00-05:00</updated>
+   <updated>2018-11-27T04:00:00-08:00</updated>
    <id>https://colinholzman.xyz/2018/11/27/colinholzman-xyz</id>
    <content type="html">&lt;p&gt;I’ve wanted to learn what it takes to run a website. Finally I’ve put together &lt;a href=&quot;https://colinholzman.xyz&quot;&gt;colinholzman.xyz&lt;/a&gt;. This is based on knowledge found all over the internet and through trial and error. It’s fitting to write down some instructions on how to reproduce it as the first post.&lt;/p&gt;
 
